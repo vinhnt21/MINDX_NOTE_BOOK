@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>AccountSearchDialog</class>
+ <widget class="QDialog" name="AccountSearchDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>383</width>
+    <height>213</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Tìm Kiếm Tài Khoản</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">
+/* Main Window */
+background-color: #2C3E50;
+color: white;
+
+/* Push Button */
+QPushButton {
+    border-radius: 15px;
+    color: grey;
+    font-weight: bold;
+    font-size: 15px;
+    background-color: pink;
+}
+QPushButton:hover {
+    background-color: #2980b9;
+}
+
+/* Label */
+QLabel {
+    color: #2c3e50;
+    font-size: 14px;
+    font-weight: bold;
+}
+      </string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QLabel" name="lblTitle">
+     <property name="styleSheet">
+      <string notr="true">background-color:#2C3E50; border-radius: 15px; font-size: 20px; color: white; font-weight: bold;</string>
+     </property>
+     <property name="text">
+      <string>Tìm Kiếm Tài Khoản</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="searchLayout">
+     <item>
+      <widget class="QLineEdit" name="lineEditSearch">
+       <property name="placeholderText">
+        <string>Nhập tên tài khoản...</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btnSearch">
+       <property name="text">
+        <string>Tìm kiếm</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QListWidget" name="listWidgetResults">
+     <property name="styleSheet">
+      <string notr="true">background-color: rgba(255, 255, 255, 180); border-radius: 15px;</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="buttonLayout">
+     <item>
+      <widget class="QPushButton" name="btnClose">
+       <property name="text">
+        <string>Đóng</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

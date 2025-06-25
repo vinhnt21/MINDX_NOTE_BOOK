@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>AccountEditDialog</class>
+ <widget class="QDialog" name="AccountEditDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>383</width>
+    <height>214</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Điều Chỉnh Tài Khoản</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">
+/* Main Window */
+background-color: #2C3E50;
+color: white;
+
+/* Push Button */
+QPushButton {
+    border-radius: 15px;
+    color: grey;
+    font: bold;
+    font-size: 15px;
+    background-color: pink;
+}
+QPushButton:hover {
+    background-color: #2980b9;
+}
+
+/* Label */
+QLabel {
+    color: #2c3e50;
+    font-size: 14px;
+    font-weight: bold;
+}
+      </string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QLabel" name="lblTitle">
+     <property name="styleSheet">
+      <string notr="true">background-color: #2C3E50; border-radius: 15px; font-size: 20px; color: white; font: bold; font-color:white;</string>
+     </property>
+     <property name="text">
+      <string>Điều Chỉnh Tài Khoản</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QFormLayout" name="formLayout">
+     <property name="labelAlignment">
+      <set>Qt::AlignRight</set>
+     </property>
+     <item row="0" column="0">
+      <widget class="QLabel" name="lblUsername">
+       <property name="text">
+        <string>Tên Tài Khoản:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLineEdit" name="lineEditUsername"/>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="lblPassword">
+       <property name="text">
+        <string>Mật Khẩu:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLineEdit" name="lineEditPassword">
+       <property name="echoMode">
+        <enum>QLineEdit::Password</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="lblEmail">
+       <property name="text">
+        <string>Email:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QLineEdit" name="lineEditEmail"/>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="buttonLayout">
+     <item>
+      <widget class="QPushButton" name="btnSave">
+       <property name="text">
+        <string>Lưu</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btnCancel">
+       <property name="text">
+        <string>Hủy</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

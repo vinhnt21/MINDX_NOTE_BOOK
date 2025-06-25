@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>409</width>
+    <height>203</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">/* Áp dụng font chữ */
+QWidget {
+    font-family: &quot;Comic Sans MS&quot;, &quot;Arial&quot;, sans-serif;
+    font-size: 14px;
+    background-color: #FFFAF3; /* Màu nền kem nhẹ */
+}
+
+/* Nút bấm */
+QPushButton {
+    background-color: #FFC0CB; 
+    border: 2px solid #FF69B4;
+    border-radius: 10px;
+    padding: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+}
+
+QPushButton:hover {
+    background-color: #FF69B4; /* Đậm hơn khi hover */
+}
+
+QPushButton:pressed {
+    background-color: #FF1493;
+}
+
+/* Bảng hiển thị món */
+QTableWidget {
+    background-color: #FFF5EE;
+    border: 1px solid #FFB6C1;
+    gridline-color: #FF69B4;
+}
+
+QHeaderView::section {
+    background-color: #FFB6C1;
+    font-weight: bold;
+    border: 1px solid #FF69B4;
+}
+
+/* Nhãn tổng tiền */
+QLabel#lbTotal {
+    background-color: #FFDAB9;
+    border: 2px solid #FFA07A;
+    border-radius: 10px;
+    padding: 5px;
+    color: #D2691E;
+}
+</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QWidget" name="formLayoutWidget_2">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>40</y>
+      <width>321</width>
+      <height>181</height>
+     </rect>
+    </property>
+    <layout class="QFormLayout" name="formLayout_2">
+     <item row="0" column="0">
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>Tên tài khoản :</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>Mật khẩu :</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLineEdit" name="lineEdit"/>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLineEdit" name="lineEdit_2"/>
+     </item>
+     <item row="2" column="0">
+      <widget class="QPushButton" name="pushButton">
+       <property name="text">
+        <string>Đăng kí</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QPushButton" name="pushButton_2">
+       <property name="text">
+        <string>Đã có tài khoản ?</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>10</y>
+      <width>81</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Đăng kí</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>409</width>
+     <height>25</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

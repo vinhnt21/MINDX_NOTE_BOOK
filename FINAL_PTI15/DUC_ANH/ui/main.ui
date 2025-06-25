@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>AccountManager</class>
+ <widget class="QMainWindow" name="AccountManager">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Quản Lý Tài Khoản</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">
+/* Main Window */
+background-color: #2C3E50;
+color: white;
+
+/* Push Button */
+QPushButton {
+    border-radius: 15px;
+    color: grey;
+    font: bold;
+    font-size: 15px;
+    background-color: pink;
+}
+QPushButton:hover {
+    background-color: #2980b9;
+}
+
+/* Label */
+QLabel {
+    color: #2c3e50;
+    font-size: 14px;
+    font-weight: bold;
+}
+      </string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QHBoxLayout" name="mainLayout">
+    <item>
+     <widget class="QFrame" name="sidebar">
+      <property name="styleSheet">
+       <string notr="true">background-color: rgba(40, 40, 40, 180);
+border-radius:20px;</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <layout class="QVBoxLayout" name="sidebarLayout">
+       <item>
+        <widget class="QPushButton" name="pushButton_2">
+         <property name="styleSheet">
+          <string notr="true">border-radius:20px;
+font:bold;
+font-size:12px;</string>
+         </property>
+         <property name="text">
+          <string> Tìm Kiếm </string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton">
+         <property name="styleSheet">
+          <string notr="true">border-radius:20px;
+font:bold;
+font-size:12px;</string>
+         </property>
+         <property name="text">
+          <string>   Tùy Chọn   </string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QFrame" name="contentArea">
+      <property name="styleSheet">
+       <string notr="true">background-color: #2C3E50;</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <layout class="QVBoxLayout" name="contentLayout">
+       <item>
+        <widget class="QLabel" name="lblTitle">
+         <property name="styleSheet">
+          <string notr="true">border-radius: 25px;
+color: white;
+font-size:20px;
+font:bold;
+background-color: #2C3E50;</string>
+         </property>
+         <property name="text">
+          <string>Danh Sách Tài Khoản</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QTextBrowser" name="textBrowser">
+         <property name="styleSheet">
+          <string notr="true">border-radius:20px;
+font:bold;
+font-size:12px;
+background-color:white;</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
