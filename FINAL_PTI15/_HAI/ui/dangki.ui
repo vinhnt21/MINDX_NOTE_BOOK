@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>RegisterWindow</class>
+ <widget class="QMainWindow" name="RegisterWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>472</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Đăng Ký</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QWidget {
+    background-color: #fff0f0;
+    font-family: &quot;Segoe UI&quot;, sans-serif;
+    font-size: 11pt;
+    color: #600000;
+}
+
+QLabel {
+    color: #800000;
+    font-weight: bold;
+}
+
+QLineEdit {
+    background-color: #fff5f5;
+    border: 2px solid #cc0000;
+    border-radius: 6px;
+    padding: 6px;
+    color: #400000;
+}
+
+QLineEdit:focus {
+    border: 2px solid #ff3333;
+    background-color: #ffeeee;
+}
+
+QPushButton {
+    background-color: #cc0000;
+    color: white;
+    border-radius: 8px;
+    padding: 10px;
+    font-weight: bold;
+}
+
+QPushButton:hover {
+    background-color: #e60000;
+}
+
+QPushButton:pressed {
+    background-color: #990000;
+}
+
+QFrame {
+    background-color: #fff7f7;
+    border: 1px solid #e0c0c0;
+    border-radius: 8px;
+}
+
+QMessageBox {
+    background-color: #fff0f0;
+    color: #600000;
+}
+</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <property name="spacing">
+     <number>15</number>
+    </property>
+    <property name="leftMargin">
+     <number>30</number>
+    </property>
+    <property name="topMargin">
+     <number>30</number>
+    </property>
+    <property name="rightMargin">
+     <number>30</number>
+    </property>
+    <property name="bottomMargin">
+     <number>30</number>
+    </property>
+    <item>
+    <widget class="QLabel" name="titleLabel">
+     <property name="font">
+      <font>
+       <family>Segoe UI,sans-serif</family>
+       <pointsize>11</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QWidget {
+    background-color: #fff0f0;
+    font-family: &quot;Segoe UI&quot;, sans-serif;
+    font-size: 11pt;
+    color: #600000;
+}
+
+QLabel {
+    color: #800000;
+    font-weight: bold;
+}
+
+QLineEdit {
+    background-color: #fff5f5;
+    border: 2px solid #cc0000;
+    border-radius: 6px;
+    padding: 6px;
+    color: #400000;
+}
+
+QLineEdit:focus {
+    border: 2px solid #ff3333;
+    background-color: #ffeeee;
+}
+
+QPushButton {
+    background-color: #cc0000;
+    color: white;
+    border-radius: 8px;
+    padding: 10px;
+    font-weight: bold;
+}
+
+QPushButton:hover {
+    background-color: #e60000;
+}
+
+QPushButton:pressed {
+    background-color: #990000;
+}
+
+QFrame {
+    background-color: #fff7f7;
+    border: 1px solid #e0c0c0;
+    border-radius: 8px;
+}
+
+QMessageBox {
+    background-color: #fff0f0;
+    color: #600000;
+}
+</string>
+     </property>
+     <property name="text">
+      <string>Tạo Tài Khoản</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <spacer name="verticalSpacer_2">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeType">
+      <enum>QSizePolicy::Fixed</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item>
+    <widget class="QLabel" name="usernameLabel">
+     <property name="font">
+      <font>
+       <family>Segoe UI,sans-serif</family>
+       <pointsize>11</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Tên đăng nhập</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLineEdit" name="usernameLineEdit">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>40</height>
+      </size>
+     </property>
+     <property name="font">
+      <font>
+       <family>Segoe UI,sans-serif</family>
+       <pointsize>11</pointsize>
+      </font>
+     </property>
+     <property name="placeholderText">
+      <string>Nhập tên đăng nhập của bạn</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="passwordLabel">
+     <property name="font">
+      <font>
+       <family>Segoe UI,sans-serif</family>
+       <pointsize>10</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QWidget#RegisterForm {
+    background-color: #2c3e50; /* Màu nền xanh đen đậm */
+}
+
+/* Áp dụng cho các nhãn (Tên đăng nhập, Mật khẩu,...) */
+QLabel {
+    color: #ecf0f1; /* Màu chữ trắng xám */
+    font-size: 10pt;
+}
+
+/* Nhãn tiêu đề &quot;Tạo Tài Khoản&quot; */
+QLabel#titleLabel {
+    color: #ffffff; /* Màu trắng */
+    font-size: 24pt;
+    font-weight: bold;
+}
+
+/* Áp dụng cho các ô nhập liệu */
+QLineEdit {
+    background-color: #34495e; /* Màu nền ô nhập liệu */
+    border: 1px solid #34495e;
+    border-radius: 8px; /* Bo tròn góc */
+    padding: 0 10px; /* Thụt lề cho chữ bên trong */
+    color: #ecf0f1; /* Màu chữ khi nhập */
+    font-size: 11pt;
+}
+
+/* Hiệu ứng khi focus vào ô nhập liệu */
+QLineEdit:focus {
+    border: 1px solid #e74c3c; /* Viền chuyển sang màu đỏ khi được chọn */
+}
+
+/* Nút bấm ĐĂNG KÝ */
+QPushButton#registerButton {
+    background-color: #e74c3c; /* Màu nền đỏ */
+    color: #ffffff; /* Màu chữ trắng */
+    border: none;
+    border-radius: 8px;
+    font-size: 12pt;
+    font-weight: bold;
+}
+
+/* Hiệu ứng khi di chuột qua nút */
+QPushButton#registerButton:hover {
+    background-color: #c0392b; /* Màu đỏ đậm hơn */
+}
+
+/* Hiệu ứng khi nhấn nút */
+QPushButton#registerButton:pressed {
+    background-color: #a93226; /* Màu đỏ đậm hơn nữa */
+}</string>
+     </property>
+     <property name="text">
+      <string>Mật khẩu</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLineEdit" name="passwordLineEdit">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>40</height>
+      </size>
+     </property>
+     <property name="font">
+      <font>
+       <family>Segoe UI,sans-serif</family>
+       <pointsize>11</pointsize>
+      </font>
+     </property>
+     <property name="echoMode">
+      <enum>QLineEdit::Password</enum>
+     </property>
+     <property name="placeholderText">
+      <string>Nhập mật khẩu</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="verifyPasswordLabel">
+     <property name="font">
+      <font>
+       <family>Segoe UI,sans-serif</family>
+       <pointsize>11</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Xác minh mật khẩu</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLineEdit" name="verifyPasswordLineEdit">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>40</height>
+      </size>
+     </property>
+     <property name="font">
+      <font>
+       <family>Segoe UI,sans-serif</family>
+       <pointsize>11</pointsize>
+      </font>
+     </property>
+     <property name="echoMode">
+      <enum>QLineEdit::Password</enum>
+     </property>
+     <property name="placeholderText">
+      <string>Nhập lại mật khẩu</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item>
+    <widget class="QPushButton" name="registerButton">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>50</height>
+      </size>
+     </property>
+     <property name="font">
+      <font>
+       <family>Segoe UI,sans-serif</family>
+       <pointsize>11</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
+     <property name="text">
+      <string>ĐĂNG KÝ</string>
+     </property>
+    </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

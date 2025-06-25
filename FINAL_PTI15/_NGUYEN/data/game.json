@@ -1,0 +1,37 @@
+[
+    {
+        "name": "Minecraft",
+        "price": "26.95$",
+        "description": "Trò chơi xây dựng và phiêu lưu trong thế giới mở với đồ họa pixel độc đáo",
+        "url": "https://www.minecraft.net/",
+        "img_url": "https://www.minecraft.net/content/dam/games/minecraft/key-art/Games_Subnav_Minecraft-300x465.jpg"
+    },
+    {
+        "name": "Among Us",
+        "price": "4.99$",
+        "description": "Trò chơi tìm kẻ phản bội trong không gian với đồ họa đáng yêu",
+        "url": "https://www.innersloth.com/games/among-us/",
+        "img_url": "https://www.innersloth.com/img/among-us.png"
+    },
+    {
+        "name": "Valorant",
+        "price": "Free",
+        "description": "Game bắn súng chiến thuật 5v5 với các đặc vụ có kỹ năng đặc biệt",
+        "url": "https://playvalorant.com/",
+        "img_url": "https://playvalorant.com/assets/game-nav-logo.svg"
+    },
+    {
+        "name": "League of Legends",
+        "price": "Free",
+        "description": "Game MOBA kinh điển với hàng trăm tướng độc đáo",
+        "url": "https://www.leagueoflegends.com/",
+        "img_url": "https://www.leagueoflegends.com/static/logo-1200-589b3ef693ce8a750fa4b4704307c1e1.png"
+    },
+    {
+        "name": "Genshin Impact",
+        "price": "Free",
+        "description": "RPG thế giới mở với đồ họa anime tuyệt đẹp",
+        "url": "https://genshin.hoyoverse.com/",
+        "img_url": "https://webstatic.hoyoverse.com/genshin/app/share-image.jpg"
+    }
+]

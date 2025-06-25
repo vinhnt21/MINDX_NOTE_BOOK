@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Nhập - Demo Xác Thực Firebase</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav>
+        <a href="index.html">Trang Chủ</a>
+        <a href="login.html">Đăng Nhập</a>
+        <a href="register.html">Đăng Ký</a>
+    </nav>
+    <div class="container">
+        <h2>Đăng Nhập</h2>
+        <form id="login-form">
+            <div class="form-group">
+                <label for="login-email">Email:</label>
+                <input type="email" id="login-email" required>
+            </div>
+            <div class="form-group">
+                <label for="login-password">Mật Khẩu:</label>
+                <input type="password" id="login-password" required>
+            </div>
+            <button type="submit">Đăng Nhập</button>
+        </form>
+        <div class="form-group" style="margin-top: 20px; text-align: center;">
+            <p style="margin-bottom: 10px;">Hoặc đăng nhập bằng:</p>
+            <button id="google-signin" type="button" style="background-color: #fff; color: #757575; border: 1px solid #ddd; display: flex; align-items: center; justify-content: center; gap: 10px;">
+                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Logo Google" style="width: 18px; height: 18px;">
+                Đăng Nhập Bằng Google
+            </button>
+        </div>
+        <div id="login-message" class="message"></div>
+        <p class="page-link">Chưa có tài khoản? <a href="register.html">Đăng ký tại đây</a></p>
+    </div>
+    <script type="module" src="js/app/login.js"></script>
+</body>
+</html> 

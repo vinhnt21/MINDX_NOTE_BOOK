@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ElevenLabs TTS Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #334155 50%, #475569 75%, #64748b 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(120, 255, 198, 0.3) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 2.5rem;
+            box-shadow: 
+                0 32px 64px rgba(0, 0, 0, 0.3),
+                0 8px 32px rgba(0, 0, 0, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .logo h1 {
+            background: linear-gradient(135deg, #8b5cf6, #06b6d4, #10b981);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 2.5rem;
+            font-weight: 900;
+            letter-spacing: -1px;
+            margin-bottom: 0.5rem;
+        }
+        
+        .logo p {
+            color: #94a3b8;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+        
+        .form-group {
+            margin-bottom: 2rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+            color: #e2e8f0;
+            font-size: 0.95rem;
+        }
+        
+        .input-wrapper {
+            position: relative;
+        }
+        
+        input[type="password"], textarea, select {
+            width: 100%;
+            padding: 1rem 1.2rem;
+            font-size: 1rem;
+            border: 2px solid rgba(148, 163, 184, 0.2);
+            border-radius: 16px;
+            background: rgba(30, 41, 59, 0.6);
+            color: #f1f5f9;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-family: inherit;
+            outline: none;
+        }
+        
+        input[type="password"]:focus, textarea:focus, select:focus {
+            border-color: #8b5cf6;
+            box-shadow: 
+                0 0 0 4px rgba(139, 92, 246, 0.2),
+                0 8px 32px rgba(139, 92, 246, 0.15);
+            background: rgba(30, 41, 59, 0.8);
+            transform: translateY(-1px);
+        }
+        
+        input[type="password"]::placeholder, textarea::placeholder {
+            color: #64748b;
+        }
+        
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+            line-height: 1.6;
+        }
+        
+        select {
+            cursor: pointer;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+            background-position: right 0.75rem center;
+            background-repeat: no-repeat;
+            background-size: 1.5em 1.5em;
+            padding-right: 2.5rem;
+        }
+        
+        .voice-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .voice-card {
+            background: rgba(30, 41, 59, 0.4);
+            border: 2px solid rgba(148, 163, 184, 0.2);
+            border-radius: 12px;
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .voice-card:hover {
+            border-color: rgba(139, 92, 246, 0.5);
+            background: rgba(30, 41, 59, 0.6);
+            transform: translateY(-2px);
+        }
+        
+        .voice-card.selected {
+            border-color: #8b5cf6;
+            background: rgba(139, 92, 246, 0.1);
+        }
+        
+        .voice-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.1), transparent);
+            transition: left 0.5s;
+        }
+        
+        .voice-card:hover::before {
+            left: 100%;
+        }
+        
+        .voice-name {
+            font-weight: 700;
+            color: #f1f5f9;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .voice-desc {
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+        
+        .generate-button {
+            width: 100%;
+            padding: 1.3rem 2rem;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: white;
+            background: linear-gradient(135deg, #8b5cf6 0%, #06b6d4 50%, #10b981 100%);
+            border: none;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 8px 32px rgba(139, 92, 246, 0.3);
+        }
+        
+        .generate-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .generate-button:hover::before {
+            left: 100%;
+        }
+        
+        .generate-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 16px 48px rgba(139, 92, 246, 0.4);
+        }
+        
+        .generate-button:active {
+            transform: translateY(-1px);
+        }
+        
+        .generate-button:disabled {
+            background: linear-gradient(135deg, #374151, #4b5563);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: 0 4px 16px rgba(75, 85, 99, 0.2);
+        }
+        
+        .generate-button:disabled::before {
+            display: none;
+        }
+        
+        .status {
+            text-align: center;
+            margin-top: 1.5rem;
+            padding: 1.2rem;
+            border-radius: 16px;
+            font-weight: 600;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .status.ready {
+            background: rgba(16, 185, 129, 0.15);
+            color: #10b981;
+            border: 2px solid rgba(16, 185, 129, 0.3);
+        }
+        
+        .status.loading {
+            background: rgba(6, 182, 212, 0.15);
+            color: #06b6d4;
+            border: 2px solid rgba(6, 182, 212, 0.3);
+        }
+        
+        .status.error {
+            background: rgba(239, 68, 68, 0.15);
+            color: #ef4444;
+            border: 2px solid rgba(239, 68, 68, 0.3);
+        }
+        
+        .status.success {
+            background: rgba(139, 92, 246, 0.15);
+            color: #8b5cf6;
+            border: 2px solid rgba(139, 92, 246, 0.3);
+        }
+        
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid currentColor;
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        
+        .audio-player {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: rgba(30, 41, 59, 0.6);
+            border-radius: 16px;
+            border: 2px solid rgba(139, 92, 246, 0.3);
+        }
+        
+        .audio-player audio {
+            width: 100%;
+            border-radius: 12px;
+            background: rgba(15, 23, 42, 0.8);
+        }
+        
+        .audio-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .control-btn {
+            padding: 0.8rem 1.5rem;
+            background: rgba(139, 92, 246, 0.2);
+            color: #8b5cf6;
+            border: 2px solid rgba(139, 92, 246, 0.3);
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .control-btn:hover {
+            background: rgba(139, 92, 246, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .container {
+                padding: 2rem 1.5rem;
+                margin: 1rem;
+            }
+            
+            .logo h1 {
+                font-size: 2rem;
+            }
+            
+            .voice-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .generate-button {
+                padding: 1.1rem 1.5rem;
+                font-size: 1rem;
+            }
+            
+            .audio-controls {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <h1>🎙️ ElevenLabs TTS</h1>
+            <p>Chuyển văn bản thành giọng nói AI chất lượng cao</p>
+        </div>
+        
+        <div class="form-group">
+            <label for="apiKey">🔐 API Key</label>
+            <div class="input-wrapper">
+                <input type="password" id="apiKey" placeholder="Nhập ElevenLabs API Key của bạn">
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label>🎭 Chọn giọng nói</label>
+            <div class="voice-grid">
+                <div class="voice-card selected" data-voice="JBFqnCBsd6RMkjVDRZzb">
+                    <div class="voice-name">George</div>
+                    <div class="voice-desc">Giọng nam trầm ấm, chuyên nghiệp</div>
+                </div>
+                <div class="voice-card" data-voice="21m00Tcm4TlvDq8ikWAM">
+                    <div class="voice-name">Rachel</div>
+                    <div class="voice-desc">Giọng nữ tự nhiên, dễ nghe</div>
+                </div>
+                <div class="voice-card" data-voice="AZnzlk1XvdvUeBnXmlld">
+                    <div class="voice-name">Domi</div>
+                    <div class="voice-desc">Giọng nữ trẻ trung, năng động</div>
+                </div>
+                <div class="voice-card" data-voice="EXAVITQu4vr4xnSDxMaL">
+                    <div class="voice-name">Bella</div>
+                    <div class="voice-desc">Giọng nữ ngọt ngào, cuốn hút</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="modelSelect">🤖 Model AI</label>
+            <select id="modelSelect">
+                <option value="eleven_multilingual_v2">Eleven Multilingual V2 (Đa ngôn ngữ)</option>
+                <option value="eleven_monolingual_v1">Eleven Monolingual V1 (Tiếng Anh)</option>
+                <option value="eleven_turbo_v2">Eleven Turbo V2 (Nhanh)</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="textInput">📝 Văn bản cần chuyển đổi</label>
+            <textarea id="textInput" placeholder="Nhập văn bản bạn muốn chuyển thành giọng nói...">The first move is what sets everything in motion.</textarea>
+        </div>
+        
+        <button id="generateButton" class="generate-button">
+            🎵 Tạo giọng nói
+        </button>
+        
+        <div id="status" class="status ready">
+            ✅ Sẵn sàng tạo giọng nói
+        </div>
+        
+        <div id="audioPlayer" class="audio-player" style="display: none;">
+            <audio controls id="audioElement">
+                Trình duyệt của bạn không hỗ trợ phát audio.
+            </audio>
+            <div class="audio-controls">
+                <a id="downloadLink" class="control-btn" style="display: none;">
+                    💾 Tải xuống MP3
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let selectedVoiceId = 'JBFqnCBsd6RMkjVDRZzb';
+        let currentAudioUrl = null;
+        
+        // Voice selection
+        document.querySelectorAll('.voice-card').forEach(card => {
+            card.addEventListener('click', function() {
+                document.querySelectorAll('.voice-card').forEach(c => c.classList.remove('selected'));
+                this.classList.add('selected');
+                selectedVoiceId = this.dataset.voice;
+            });
+        });
+        
+        // Status update function
+        function updateStatus(message, type = 'ready') {
+            const statusDiv = document.getElementById('status');
+            const spinner = type === 'loading' ? '<div class="spinner"></div>' : '';
+            statusDiv.innerHTML = `${spinner} ${message}`;
+            statusDiv.className = `status ${type}`;
+        }
+        
+        // Generate speech function
+        async function generateSpeech() {
+            const apiKey = document.getElementById('apiKey').value.trim();
+            const text = document.getElementById('textInput').value.trim();
+            const model = document.getElementById('modelSelect').value;
+            const generateButton = document.getElementById('generateButton');
+            const audioPlayer = document.getElementById('audioPlayer');
+            const audioElement = document.getElementById('audioElement');
+            const downloadLink = document.getElementById('downloadLink');
+            
+            // Validation
+            if (!apiKey) {
+                updateStatus('❌ Vui lòng nhập API Key!', 'error');
+                return;
+            }
+            
+            if (!text) {
+                updateStatus('❌ Vui lòng nhập văn bản!', 'error');
+                return;
+            }
+            
+            // Show loading
+            generateButton.disabled = true;
+            updateStatus('🔄 Đang tạo giọng nói...', 'loading');
+            audioPlayer.style.display = 'none';
+            
+            // Clean up previous audio URL
+            if (currentAudioUrl) {
+                URL.revokeObjectURL(currentAudioUrl);
+            }
+            
+            try {
+                const response = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${selectedVoiceId}?output_format=mp3_44100_128`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'xi-api-key': apiKey
+                    },
+                    body: JSON.stringify({
+                        text: text,
+                        model_id: model
+                    })
+                });
+                
+                if (!response.ok) {
+                    const errorData = await response.text();
+                    throw new Error(`API Error ${response.status}: ${errorData}`);
+                }
+                
+                // Get audio blob
+                const audioBlob = await response.blob();
+                currentAudioUrl = URL.createObjectURL(audioBlob);
+                
+                // Set audio source and show player
+                audioElement.src = currentAudioUrl;
+                audioPlayer.style.display = 'block';
+                
+                // Set download link
+                downloadLink.href = currentAudioUrl;
+                downloadLink.download = `elevenlabs-tts-${Date.now()}.mp3`;
+                downloadLink.style.display = 'inline-block';
+                
+                updateStatus('🎉 Tạo giọng nói thành công!', 'success');
+                
+            } catch (error) {
+                console.error('Error:', error);
+                updateStatus(`❌ Lỗi: ${error.message}`, 'error');
+            } finally {
+                generateButton.disabled = false;
+            }
+        }
+        
+        // Event listeners
+        document.getElementById('generateButton').addEventListener('click', generateSpeech);
+        
+        // Keyboard shortcuts
+        document.getElementById('textInput').addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && e.ctrlKey) {
+                e.preventDefault();
+                if (!document.getElementById('generateButton').disabled) {
+                    generateSpeech();
+                }
+            }
+        });
+        
+        // Auto-save API key
+        document.getElementById('apiKey').addEventListener('input', (e) => {
+            localStorage.setItem('elevenlabs_api_key', e.target.value);
+        });
+        
+        // Load saved API key
+        window.addEventListener('load', () => {
+            const savedKey = localStorage.getItem('elevenlabs_api_key');
+            if (savedKey) {
+                document.getElementById('apiKey').value = savedKey;
+            }
+        });
+    </script>
+</body>
+</html>

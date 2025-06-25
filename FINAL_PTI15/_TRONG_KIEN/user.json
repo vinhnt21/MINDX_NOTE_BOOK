@@ -1,0 +1,24 @@
+{
+    "users": [
+        {
+            "username": "admin",
+            "password": "123456",
+            "highest_score": 5
+        },
+        {
+            "username": "AAAAAAAAAAAAAAAA",
+            "password": "AAAAAAAAAAAAAAAA",
+            "highest_score": 3
+        },
+        {
+            "username": "aaaaaaaaaaaaaaaaaaaaaa",
+            "password": "aaaaaaaaaaaaaaaaaaaaaa",
+            "highest_score": 5
+        },
+        {
+            "username": "AAAAAAAAAAAA",
+            "password": "AAAAAAAAAAAA",
+            "highest_score": 4
+        }
+    ]
+}

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Ký - Demo Xác Thực Firebase</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav>
+        <a href="index.html">Trang Chủ</a>
+        <a href="login.html">Đăng Nhập</a>
+        <a href="register.html">Đăng Ký</a>
+    </nav>
+    <div class="container">
+        <h2>Đăng Ký</h2>
+        <form id="register-form">
+            <div class="form-group">
+                <label for="register-email">Email:</label>
+                <input type="email" id="register-email" required>
+            </div>
+            <div class="form-group">
+                <label for="register-password">Mật Khẩu (tối thiểu 6 ký tự):</label>
+                <input type="password" id="register-password" required minlength="6">
+            </div>
+            <div class="form-group">
+                <label for="confirm-password">Xác Nhận Mật Khẩu:</label>
+                <input type="password" id="confirm-password" required minlength="6">
+            </div>
+            <button type="submit">Đăng Ký</button>
+        </form>
+        <div id="register-message" class="message"></div>
+        <p class="page-link">Đã có tài khoản? <a href="login.html">Đăng nhập tại đây</a></p>
+    </div>
+    <script type="module" src="js/app/register.js"></script>
+</body>
+</html> 

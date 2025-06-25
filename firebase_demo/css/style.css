@@ -1,0 +1,218 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+:root {
+    --primary-color: #FF6B6B;
+    --secondary-color: #4ECDC4;
+    --accent-color: #FFE66D;
+    --background-color: #F7FFF7;
+    --text-color: #2D3436;
+    --border-color: #2D3436;
+    --shadow-offset: 4px;
+    --border-width: 3px;
+}
+
+body {
+    font-family: 'Space Grotesk', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    min-height: 100vh;
+    line-height: 1.5;
+}
+
+.container {
+    background-color: white;
+    padding: 30px;
+    border: var(--border-width) solid var(--border-color);
+    border-radius: 0;
+    box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--border-color);
+    width: 90%;
+    max-width: 400px;
+    min-height: 300px;
+    transform: translate(0, 0);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.container:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: calc(var(--shadow-offset) + 2px) calc(var(--shadow-offset) + 2px) 0 var(--border-color);
+}
+
+nav {
+    margin-bottom: 30px;
+    background-color: var(--primary-color);
+    padding: 15px 25px;
+    border: var(--border-width) solid var(--border-color);
+    border-radius: 0;
+    box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--border-color);
+}
+
+nav a {
+    margin: 0 15px;
+    text-decoration: none;
+    color: var(--background-color);
+    font-weight: 600;
+    font-size: 16px;
+    padding: 8px 15px;
+    border: var(--border-width) solid var(--background-color);
+    background-color: transparent;
+    transition: all 0.2s ease;
+}
+
+nav a:hover {
+    background-color: var(--background-color);
+    color: var(--primary-color);
+    transform: translate(-2px, -2px);
+    box-shadow: 2px 2px 0 var(--border-color);
+}
+
+h1, h2 {
+    text-align: center;
+    color: var(--text-color);
+    font-weight: 700;
+    margin-bottom: 25px;
+    text-transform: uppercase;
+    letter-spacing: -0.5px;
+}
+
+.form-group {
+    margin-bottom: 25px;
+    position: relative;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--text-color);
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border: var(--border-width) solid var(--border-color);
+    background-color: white;
+    color: var(--text-color);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.form-group input:focus {
+    outline: none;
+    transform: translate(-2px, -2px);
+    box-shadow: 2px 2px 0 var(--border-color);
+}
+
+button {
+    background-color: var(--accent-color);
+    color: var(--text-color);
+    padding: 15px 20px;
+    border: var(--border-width) solid var(--border-color);
+    cursor: pointer;
+    width: 100%;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    transition: all 0.2s ease;
+    box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--border-color);
+    transform: translate(0, 0);
+}
+
+button:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: calc(var(--shadow-offset) + 2px) calc(var(--shadow-offset) + 2px) 0 var(--border-color);
+}
+
+button:active {
+    transform: translate(0, 0);
+    box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--border-color);
+}
+
+.message {
+    text-align: center;
+    padding: 15px;
+    margin-top: 20px;
+    border: var(--border-width) solid var(--border-color);
+    font-weight: 600;
+}
+
+.error-message {
+    background-color: #FFE5E5;
+    color: #D63031;
+    border-color: #D63031;
+}
+
+.success-message {
+    background-color: #E5FFE5;
+    color: #27AE60;
+    border-color: #27AE60;
+}
+
+.user-info {
+    margin-top: 20px;
+    text-align: center;
+    padding: 15px;
+    background-color: var(--secondary-color);
+    border: var(--border-width) solid var(--border-color);
+    color: var(--background-color);
+    font-weight: 600;
+}
+
+.auth-links, .user-actions {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.page-link {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.page-link:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+#google-signin {
+    background-color: white !important;
+    color: var(--text-color) !important;
+    border: var(--border-width) solid var(--border-color) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 12px !important;
+    padding: 12px 20px !important;
+    font-family: 'Space Grotesk', sans-serif !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--border-color) !important;
+    transition: all 0.2s ease !important;
+    transform: translate(0, 0) !important;
+}
+
+#google-signin:hover {
+    transform: translate(-2px, -2px) !important;
+    box-shadow: calc(var(--shadow-offset) + 2px) calc(var(--shadow-offset) + 2px) 0 var(--border-color) !important;
+}
+
+#google-signin:active {
+    transform: translate(0, 0) !important;
+    box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--border-color) !important;
+}
+
+#google-signin img {
+    width: 20px;
+    height: 20px;
+} 

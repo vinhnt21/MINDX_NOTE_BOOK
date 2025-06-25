@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang Chủ - Demo Xác Thực Firebase</title>
+    <link rel="stylesheet" href="css/style.css">
+    
+</head>
+<body>
+    <nav>
+        <a href="index.html">Trang Chủ</a>
+        <a href="login.html" id="nav-login-link">Đăng Nhập</a>
+        <a href="register.html" id="nav-register-link">Đăng Ký</a>
+    </nav>
+    <div class="container">
+        <h1>Chào Mừng Đến Với Demo Xác Thực</h1>
+        <div id="user-info" class="user-info"></div>
+        <div id="auth-links" class="auth-links">
+            <p>Vui lòng <a href="login.html">đăng nhập</a> hoặc <a href="register.html">đăng ký</a>.</p>
+        </div>
+        <div id="user-actions" class="user-actions" style="display: none;">
+            <button id="logout-button">Đăng Xuất</button>
+        </div>
+    </div>
+    <script type="module" src="js/app/home.js"></script>
+</body>
+</html> 

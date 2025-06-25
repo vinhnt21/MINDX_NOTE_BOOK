@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>RegisterWindow</class>
+ <widget class="QMainWindow" name="RegisterWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>350</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Đăng ký - Game Store</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: #f0f0f0;</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QLabel" name="label_title">
+      <property name="font">
+       <font>
+        <family>Arial</family>
+        <pointsize>20</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: #2c3e50; margin: 20px;</string>
+      </property>
+      <property name="text">
+       <string>ĐĂNG KÝ</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <layout class="QVBoxLayout" name="form_layout">
+      <item>
+       <widget class="QLineEdit" name="username_edit">
+        <property name="styleSheet">
+         <string notr="true">QLineEdit {
+    padding: 10px;
+    font-size: 14px;
+    border: 2px solid #bdc3c7;
+    border-radius: 5px;
+    margin: 5px;
+}
+QLineEdit:focus {
+    border-color: #3498db;
+}</string>
+        </property>
+        <property name="placeholderText">
+         <string>Tên đăng nhập</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="password_edit">
+        <property name="styleSheet">
+         <string notr="true">QLineEdit {
+    padding: 10px;
+    font-size: 14px;
+    border: 2px solid #bdc3c7;
+    border-radius: 5px;
+    margin: 5px;
+}
+QLineEdit:focus {
+    border-color: #3498db;
+}</string>
+        </property>
+        <property name="echoMode">
+         <enum>QLineEdit::Password</enum>
+        </property>
+        <property name="placeholderText">
+         <string>Mật khẩu</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="confirm_password_edit">
+        <property name="styleSheet">
+         <string notr="true">QLineEdit {
+    padding: 10px;
+    font-size: 14px;
+    border: 2px solid #bdc3c7;
+    border-radius: 5px;
+    margin: 5px;
+}
+QLineEdit:focus {
+    border-color: #3498db;
+}</string>
+        </property>
+        <property name="echoMode">
+         <enum>QLineEdit::Password</enum>
+        </property>
+        <property name="placeholderText">
+         <string>Xác nhận mật khẩu</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="button_layout">
+      <item>
+       <widget class="QPushButton" name="register_btn">
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+    padding: 10px 20px;
+    font-size: 14px;
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin: 10px;
+}
+QPushButton:hover {
+    background-color: #229954;
+}</string>
+        </property>
+        <property name="text">
+         <string>Đăng ký</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="back_btn">
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+    padding: 10px 20px;
+    font-size: 14px;
+    background-color: #95a5a6;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin: 10px;
+}
+QPushButton:hover {
+    background-color: #7f8c8d;
+}</string>
+        </property>
+        <property name="text">
+         <string>Quay lại</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

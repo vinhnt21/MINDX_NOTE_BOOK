@@ -1,0 +1,38 @@
+[
+    {
+        "id": 1,
+        "question": "Thủ đô của Việt Nam là gì?",
+        "options": ["Hà Nội", "Hồ Chí Minh", "Đà Nẵng", "Cần Thơ"],
+        "correct_answer": 0
+    },
+    {
+        "id": 2,
+        "question": "2 + 2 = ?",
+        "options": ["3", "4", "5", "6"],
+        "correct_answer": 1
+    },
+    {
+        "id": 3,
+        "question": "Ai là người phát minh ra bóng đèn điện?",
+        "options": ["Thomas Edison", "Albert Einstein", "Isaac Newton", "Nikola Tesla"],
+        "correct_answer": 0
+    },
+    {
+        "id": 4,
+        "question": "Hành tinh lớn nhất trong hệ mặt trời là?",
+        "options": ["Trái Đất", "Sao Hỏa", "Sao Mộc", "Sao Kim"],
+        "correct_answer": 2
+    },
+    {
+        "id": 5,
+        "question": "Python là gì?",
+        "options": ["Ngôn ngữ lập trình", "Loài rắn", "Cả hai đáp án trên", "Không có đáp án nào đúng"],
+        "correct_answer": 2
+    },
+    {
+        "id": 6,
+        "question": "Đâu là ngôn ngữ lập trình?",
+        "options": ["Python", "English", "Vietnamese", "Chinese"],
+        "correct_answer": 0
+    }
+]

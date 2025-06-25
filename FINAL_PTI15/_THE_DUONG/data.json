@@ -1,0 +1,49 @@
+[
+    {
+        "username": "demo",
+        "password": "demo",
+        "tasks": [
+            {
+                "title": "Học Python",
+                "due_date": "2024-01-20",
+                "status": "Chưa hoàn thành",
+                "description": "Ôn tập cú pháp Python cơ bản",
+                "created_date": "2025-06-22 11:47:02"
+            },
+            {
+                "title": "Làm bài tập PyQt6",
+                "due_date": "2024-01-22",
+                "status": "Hoàn thành",
+                "description": "Hoàn thành bài tập giao diện người dùng",
+                "created_date": "2025-06-22 11:47:02"
+            },
+            {
+                "title": "Đọc sách lập trình",
+                "due_date": "2024-01-25",
+                "status": "Chưa hoàn thành",
+                "description": "Đọc chương 5 về OOP",
+                "created_date": "2025-06-22 11:47:02"
+            },
+            {
+                "title": "Dự án cuối kỳ",
+                "due_date": "2024-01-30",
+                "status": "Chưa hoàn thành",
+                "description": "Hoàn thiện ứng dụng quản lý task",
+                "created_date": "2025-06-22 11:47:02"
+            }
+        ]
+    },
+    {
+        "username": "aaaaaaaa",
+        "password": "aaaaaaaa",
+        "tasks": [
+            {
+                "title": "aaaaaaaa",
+                "due_date": "2025-06-23",
+                "status": "Hoàn thành",
+                "description": "aaa",
+                "created_date": "2025-06-22 11:47:20"
+            }
+        ]
+    }
+]

@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Tóm Tắt DOCX - Hỗ Trợ Bởi Cohere AI - hai.ui</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">/* --- General --- */
+QWidget {
+	background-color: #f0f0f0;
+	font-family: &quot;Segoe UI&quot;, Arial, sans-serif;
+}
+
+/* --- Buttons (Red) --- */
+QPushButton {
+	background-color: #d9534f; /* Red */
+	color: white;
+	border: 1px solid #d43f3a;
+	padding: 8px 16px;
+	border-radius: 4px;
+	font-weight: 500;
+	font-size: 12px;
+}
+
+QPushButton:hover {
+	background-color: #c9302c; /* Darker Red */
+	border-color: #ac2925;
+}
+
+QPushButton:pressed {
+	background-color: #ac2925; /* Even Darker Red */
+}
+
+/* --- GroupBox --- */
+QGroupBox {
+	font-weight: bold;
+	border: 1px solid #c0c0c0;
+	border-radius: 5px;
+	margin-top: 10px;
+	padding-top: 10px;
+}
+
+QGroupBox::title {
+	subcontrol-origin: margin;
+	subcontrol-position: top left;
+	padding: 0 5px;
+	left: 10px;
+}
+
+/* --- LineEdits and ComboBoxes --- */
+QLineEdit, QComboBox, QTextEdit {
+	background-color: white;
+	border: 1px solid #c0c0c0;
+	border-radius: 4px;
+	padding: 5px;
+}
+
+QLineEdit#lineEdit_filePath {
+	border: 1px solid #d9534f; /* Red border */
+	font-weight: 500;
+}
+
+/* --- Tabs --- */
+QTabWidget::pane { 
+    border-top: 1px solid #c0c0c0;
+    background-color: white;
+}
+
+QTabBar::tab {
+    background: #e1e1e1;
+    border: 1px solid #c0c0c0;
+	border-bottom-color: #c0c0c0;
+    padding: 10px 20px;
+	border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    font-weight: 500;
+}
+
+QTabBar::tab:selected {
+    background: white;
+    margin-bottom: -1px; /* Make it overlap the pane */
+	border-bottom-color: white; /* Hide bottom border */
+}
+
+QTabBar::tab:hover {
+    background: #f5f5f5;
+}
+
+/* --- Text Edits --- */
+QTextEdit {
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+QTextEdit#textEdit_summary {
+    border: 2px solid #d9534f;
+    background-color: #fff;
+}
+
+QTextEdit#textEdit_original {
+    background-color: #f8f8f8;
+}
+
+/* --- Labels --- */
+QLabel {
+    font-weight: 500;
+    color: #333;
+}
+</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout_main">
+    <property name="spacing">
+     <number>15</number>
+    </property>
+    <property name="leftMargin">
+     <number>15</number>
+    </property>
+    <property name="topMargin">
+     <number>15</number>
+    </property>
+    <property name="rightMargin">
+     <number>15</number>
+    </property>
+    <property name="bottomMargin">
+     <number>15</number>
+    </property>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_file">
+      <property name="spacing">
+       <number>10</number>
+      </property>
+      <item>
+       <widget class="QLabel" name="label_file">
+        <property name="text">
+         <string>Chọn Tệp Tin DOCX:</string>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>120</width>
+          <height>0</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="lineEdit_filePath">
+        <property name="text">
+         <string>Chưa chọn tệp tin</string>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+        <property name="placeholderText">
+         <string>Đường dẫn tệp tin sẽ hiển thị ở đây</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btn_browse">
+        <property name="text">
+         <string>Duyệt</string>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>80</width>
+          <height>35</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="QGroupBox" name="groupBox_options">
+      <property name="title">
+       <string>Tùy Chọn Tóm Tắt</string>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_options">
+       <property name="spacing">
+        <number>20</number>
+       </property>
+       <item>
+        <widget class="QLabel" name="label_length">
+         <property name="text">
+          <string>Độ Dài Tóm Tắt:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="comboBox_length">
+         <property name="minimumSize">
+          <size>
+           <width>120</width>
+           <height>30</height>
+          </size>
+         </property>
+         <item>
+          <property name="text">
+           <string>Ngắn</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Trung bình</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Dài</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_format">
+         <property name="text">
+          <string>Định Dạng Tóm Tắt:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="comboBox_format">
+         <property name="minimumSize">
+          <size>
+           <width>120</width>
+           <height>30</height>
+          </size>
+         </property>
+         <item>
+          <property name="text">
+           <string>Đoạn Văn</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Gạch Đầu Dòng</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="btn_summarize">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>45</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>Tóm Tắt Tài Liệu</string>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+    font-size: 14px;
+    font-weight: bold;
+}</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="tab_summary">
+       <attribute name="title">
+        <string>Kết Quả Tóm Tắt</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_summary">
+        <property name="spacing">
+         <number>10</number>
+        </property>
+        <property name="leftMargin">
+         <number>10</number>
+        </property>
+        <property name="topMargin">
+         <number>10</number>
+        </property>
+        <property name="rightMargin">
+         <number>10</number>
+        </property>
+        <property name="bottomMargin">
+         <number>10</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="label_summary_info">
+          <property name="text">
+           <string>Văn bản tóm tắt sẽ xuất hiện ở đây sau khi bạn nhấn nút "Tóm Tắt Tài Liệu"</string>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QLabel {
+    color: #666;
+    font-style: italic;
+    padding: 5px;
+}</string>
+          </property>
+          <property name="wordWrap">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QTextEdit" name="textEdit_summary">
+          <property name="placeholderText">
+           <string>Kết quả tóm tắt sẽ hiển thị ở đây...</string>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_summary_actions">
+          <item>
+           <spacer name="horizontalSpacer_summary">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btn_copy_summary">
+            <property name="text">
+             <string>Sao Chép</string>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>80</width>
+              <height>30</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btn_save_summary">
+            <property name="text">
+             <string>Lưu File</string>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>80</width>
+              <height>30</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_original">
+       <attribute name="title">
+        <string>Văn Bản Gốc</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_original">
+        <property name="spacing">
+         <number>10</number>
+        </property>
+        <property name="leftMargin">
+         <number>10</number>
+        </property>
+        <property name="topMargin">
+         <number>10</number>
+        </property>
+        <property name="rightMargin">
+         <number>10</number>
+        </property>
+        <property name="bottomMargin">
+         <number>10</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="label_original_info">
+          <property name="text">
+           <string>Văn bản gốc từ file DOCX sẽ hiển thị ở đây</string>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QLabel {
+    color: #666;
+    font-style: italic;
+    padding: 5px;
+}</string>
+          </property>
+          <property name="wordWrap">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QTextEdit" name="textEdit_original">
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+          <property name="placeholderText">
+           <string>Nội dung văn bản gốc sẽ hiển thị ở đây khi bạn chọn file DOCX...</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

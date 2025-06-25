@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gemini TTS Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 550px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 2.5rem;
+            box-shadow: 
+                0 32px 64px rgba(31, 38, 135, 0.37),
+                0 8px 32px rgba(31, 38, 135, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+        }
+        
+        h1 {
+            text-align: center;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 2rem;
+            letter-spacing: -0.5px;
+        }
+        
+        .form-group {
+            margin-bottom: 1.8rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+            color: #374151;
+            font-size: 0.95rem;
+        }
+        
+        .api-key-input, textarea {
+            width: 100%;
+            padding: 1rem 1.2rem;
+            font-size: 1rem;
+            border: 2px solid rgba(209, 213, 219, 0.8);
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.9);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-family: inherit;
+            outline: none;
+        }
+        
+        .api-key-input:focus, textarea:focus {
+            border-color: #667eea;
+            box-shadow: 
+                0 0 0 4px rgba(102, 126, 234, 0.1),
+                0 4px 16px rgba(102, 126, 234, 0.15);
+            background: rgba(255, 255, 255, 1);
+            transform: translateY(-1px);
+        }
+        
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+            font-family: 'SF Mono', 'Monaco', 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+            line-height: 1.6;
+        }
+        
+        .speak-button {
+            width: 100%;
+            padding: 1.2rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: white;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
+        }
+        
+        .speak-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .speak-button:hover::before {
+            left: 100%;
+        }
+        
+        .speak-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(102, 126, 234, 0.4);
+        }
+        
+        .speak-button:active {
+            transform: translateY(0);
+        }
+        
+        .speak-button:disabled {
+            background: linear-gradient(135deg, #9ca3af, #6b7280);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: 0 4px 16px rgba(156, 163, 175, 0.2);
+        }
+        
+        .speak-button:disabled::before {
+            display: none;
+        }
+        
+        .status {
+            text-align: center;
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border-radius: 12px;
+            font-weight: 500;
+            min-height: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .status.ready {
+            background: rgba(16, 185, 129, 0.1);
+            color: #059669;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+        
+        .status.loading {
+            background: rgba(59, 130, 246, 0.1);
+            color: #2563eb;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            position: relative;
+        }
+        
+        .status.loading::after {
+            content: '';
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 16px;
+            height: 16px;
+            border: 2px solid #2563eb;
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 1s linear infinite;
+        }
+        
+        .status.error {
+            background: rgba(239, 68, 68, 0.1);
+            color: #dc2626;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+        
+        .status.playing {
+            background: rgba(168, 85, 247, 0.1);
+            color: #7c3aed;
+            border: 1px solid rgba(168, 85, 247, 0.2);
+        }
+        
+        @keyframes spin {
+            to {
+                transform: translateY(-50%) rotate(360deg);
+            }
+        }
+        
+        .input-group {
+            position: relative;
+        }
+        
+        .input-group .icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9ca3af;
+            font-size: 1.1rem;
+        }
+        
+        .input-group input {
+            padding-left: 3rem;
+        }
+        
+        /* Floating particles effect */
+        .container::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 30px 30px;
+            animation: float 20s linear infinite;
+            pointer-events: none;
+            opacity: 0.3;
+        }
+        
+        @keyframes float {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(-30px, -30px) rotate(360deg); }
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .container {
+                padding: 2rem 1.5rem;
+                margin: 1rem;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .api-key-input, textarea {
+                padding: 0.9rem 1rem;
+            }
+            
+            .speak-button {
+                padding: 1rem 1.5rem;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎙️ Gemini TTS Demo</h1>
+        
+        <div class="form-group">
+            <label for="apiKey">🔐 API Key</label>
+            <div class="input-group">
+                <span class="icon">🔑</span>
+                <input type="password" id="apiKey" class="api-key-input" placeholder="Dán API Key của bạn vào đây">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="textToSpeak">📝 Văn bản cần chuyển đổi</label>
+            <textarea id="textToSpeak" placeholder="Nhập văn bản bạn muốn chuyển thành giọng nói...">Say cheerfully: Have a wonderful day!</textarea>
+        </div>
+        
+        <button id="speakButton" class="speak-button">
+            🎵 Phát âm thanh
+        </button>
+        
+        <div id="status" class="status ready">✅ Sẵn sàng</div>
+    </div>
+
+    <script>
+        const speakButton = document.getElementById('speakButton');
+        const textToSpeak = document.getElementById('textToSpeak');
+        const apiKeyInput = document.getElementById('apiKey');
+        const statusDiv = document.getElementById('status');
+        
+        // Khởi tạo AudioContext để phát âm thanh
+        // Nên tạo một lần và tái sử dụng
+        let audioContext;
+
+        function updateStatus(message, type = 'ready') {
+            statusDiv.textContent = message;
+            statusDiv.className = `status ${type}`;
+        }
+
+        speakButton.addEventListener('click', async () => {
+            const apiKey = apiKeyInput.value.trim();
+            if (!apiKey) {
+                updateStatus('❌ Lỗi: Vui lòng nhập API Key!', 'error');
+                return;
+            }
+
+            if (!audioContext) {
+                try {
+                    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                } catch (e) {
+                    updateStatus('❌ Lỗi: Trình duyệt không hỗ trợ Web Audio API.', 'error');
+                    console.error(e);
+                    return;
+                }
+            }
+
+            speakButton.disabled = true;
+            updateStatus('🔄 Đang yêu cầu và tạo âm thanh...', 'loading');
+
+            // Dữ liệu gửi đi, tương tự như trong lệnh curl
+            const requestBody = {
+                "contents": [{
+                    "parts": [{
+                        "text": textToSpeak.value
+                    }]
+                }],
+                "generationConfig": {
+                    "responseModalities": ["AUDIO"],
+                    "speechConfig": {
+                        "voiceConfig": {
+                            "prebuiltVoiceConfig": {
+                                "voiceName": "Kore" // Bạn có thể thay đổi giọng nói ở đây
+                            }
+                        }
+                    }
+                },
+                "model": "gemini-2.5-flash-preview-tts",
+            };
+
+            try {
+                // Gọi API
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${apiKey}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(requestBody)
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(`API Error: ${errorData.error.message}`);
+                }
+
+                const data = await response.json();
+                
+                // Lấy chuỗi base64 từ response
+                const audioData = data.candidates[0].content.parts[0].inlineData.data;
+                
+                // Giải mã Base64 thành dữ liệu nhị phân
+                const binaryString = window.atob(audioData);
+                const len = binaryString.length;
+                const bytes = new Uint8Array(len);
+                for (let i = 0; i < len; i++) {
+                    bytes[i] = binaryString.charCodeAt(i);
+                }
+
+                // Dữ liệu từ API là raw PCM, 1 kênh (mono), 24000Hz.
+                // Chúng ta cần chuyển nó thành AudioBuffer để Web Audio API có thể phát.
+                const sampleRate = 24000;
+                // Mỗi sample là 16-bit (2 bytes), nên số lượng frame = tổng số byte / 2.
+                const audioBuffer = audioContext.createBuffer(1, bytes.length / 2, sampleRate);
+                const channelData = audioBuffer.getChannelData(0);
+
+                // Chuyển đổi dữ liệu PCM 16-bit thành Float32 (-1.0 đến 1.0)
+                const pcmData = new Int16Array(bytes.buffer);
+                for (let i = 0; i < pcmData.length; i++) {
+                    channelData[i] = pcmData[i] / 32768.0;
+                }
+                
+                updateStatus('🔊 Đang phát âm thanh...', 'playing');
+
+                // Tạo một source node, gắn buffer và phát
+                const source = audioContext.createBufferSource();
+                source.buffer = audioBuffer;
+                source.connect(audioContext.destination);
+                source.start(0);
+
+                source.onended = () => {
+                    updateStatus('✅ Sẵn sàng', 'ready');
+                    speakButton.disabled = false;
+                };
+
+            } catch (error) {
+                console.error('Error:', error);
+                updateStatus(`❌ Lỗi: ${error.message}`, 'error');
+                speakButton.disabled = false;
+            }
+        });
+
+        // Auto-save API key
+        apiKeyInput.addEventListener('input', () => {
+            localStorage.setItem('gemini_api_key', apiKeyInput.value);
+        });
+
+        // Load saved API key
+        window.addEventListener('load', () => {
+            const savedKey = localStorage.getItem('gemini_api_key');
+            if (savedKey) {
+                apiKeyInput.value = savedKey;
+            }
+        });
+
+        // Keyboard shortcuts
+        textToSpeak.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && e.ctrlKey) {
+                e.preventDefault();
+                if (!speakButton.disabled) {
+                    speakButton.click();
+                }
+            }
+        });
+    </script>
+</body>
+</html>

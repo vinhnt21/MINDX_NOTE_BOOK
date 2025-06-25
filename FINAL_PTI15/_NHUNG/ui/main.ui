@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1010</width>
+    <height>808</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Ứng Dụng Tạo Dàn Ý - Hỗ Trợ Bởi AI</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">/* --- Global Main Window Style --- */
+QMainWindow {
+    background-color: #f8f9fa;
+    font-family: &quot;Segoe UI&quot;, Arial, sans-serif;
+}
+
+/* --- Central Widget --- */
+QWidget#centralwidget {
+    background-color: #f8f9fa;
+}
+
+/* --- Frames --- */
+QFrame#headerFrame {
+    background-color: #ffffff;
+    border-bottom: 1px solid #dee2e6;
+    padding: 5px 15px;
+}
+QFrame#historyFrame, QFrame#mainContentFrame {
+    background-color: #ffffff;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+}
+
+/* --- Title Labels --- */
+QLabel#titleLabel, QLabel#historyTitleLabel, QLabel#inputTitleLabel, QLabel#outputTitleLabel {
+    font-size: 18px;
+    font-weight: bold;
+    color: #343a40;
+    padding: 5px 0;
+}
+
+QLabel#userInfoLabel {
+	font-size: 14px;
+	font-weight: 500;
+	color: #495057;
+}
+
+/* --- Input/Output Fields --- */
+QTextEdit, QListWidget {
+    background-color: #ffffff;
+    color: #495057;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 14px;
+}
+QTextEdit:focus, QListWidget:focus {
+    border-color: #007bff;
+}
+
+/* --- Primary Button --- */
+QPushButton#generate_button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+}
+QPushButton#generate_button:hover {
+    background-color: #0056b3;
+}
+QPushButton#generate_button:pressed {
+    background-color: #004085;
+}
+
+/* --- Secondary Button (Logout) --- */
+QPushButton#logout_button {
+    background-color: #f8f9fa;
+    color: #dc3545;
+	border: 1px solid #dc3545;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 600;
+}
+QPushButton#logout_button:hover {
+    background-color: #dc3545;
+    color: white;
+}
+QPushButton#logout_button:pressed {
+    background-color: #c82333;
+	border-color: #c82333;
+}
+
+/* --- QListWidget Items --- */
+QListWidget {
+    alternate-background-color: #f8f9fa;
+}
+QListWidget::item {
+    padding: 10px;
+    border-bottom: 1px solid #e9ecef;
+}
+QListWidget::item:hover {
+    background-color: #e9ecef;
+}
+QListWidget::item:selected {
+    background-color: #007bff;
+    color: white;
+    border-radius: 4px;
+}
+
+/* --- Splitter Handle --- */
+QSplitter::handle {
+    background-color: #f8f9fa;
+}
+QSplitter::handle:hover {
+    background-color: #007bff;
+}
+QSplitter::handle:horizontal {
+    width: 6px;
+}
+
+/* --- Status Bar Style --- */
+QStatusBar {
+    background-color: #ffffff;
+    color: #495057;
+    border-top: 1px solid #dee2e6;
+    padding: 5px;
+    font-size: 13px;
+}
+
+/* --- Scroll Bar Style --- */
+QScrollBar:vertical, QScrollBar:horizontal {
+    background-color: #f8f9fa;
+    width: 12px;
+	height: 12px;
+    margin: 0px;
+    border-radius: 6px;
+}
+QScrollBar::handle:vertical, QScrollBar::handle:horizontal {
+    background-color: #ced4da;
+    border-radius: 6px;
+    min-height: 20px;
+	min-width: 20px;
+}
+QScrollBar::handle:vertical:hover, QScrollBar::handle:horizontal:hover {
+    background-color: #adb5bd;
+}
+</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout_main" stretch="1,0">
+    <property name="spacing">
+     <number>10</number>
+    </property>
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>10</number>
+    </property>
+    <item>
+     <widget class="QSplitter" name="splitter_main">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="handleWidth">
+       <number>5</number>
+      </property>
+      <property name="childrenCollapsible">
+       <bool>false</bool>
+      </property>
+      <widget class="QFrame" name="mainContentFrame">
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,1">
+        <property name="spacing">
+         <number>12</number>
+        </property>
+        <property name="leftMargin">
+         <number>15</number>
+        </property>
+        <property name="topMargin">
+         <number>10</number>
+        </property>
+        <property name="rightMargin">
+         <number>15</number>
+        </property>
+        <property name="bottomMargin">
+         <number>15</number>
+        </property>
+        <item>
+         <layout class="QVBoxLayout" name="inputLayout">
+          <property name="spacing">
+           <number>8</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="inputTitleLabel">
+            <property name="text">
+             <string>Chủ đề</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QTextEdit" name="topic_input">
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>150</height>
+             </size>
+            </property>
+            <property name="placeholderText">
+             <string>Nhập chủ đề hoặc nội dung chi tiết mà bạn muốn tạo dàn ý... (Ví dụ: Tác động của AI đến giáo dục)</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QPushButton" name="generate_button">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>45</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>🚀 Tạo Kịch Bản</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="outputLayout">
+          <property name="spacing">
+           <number>8</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="outputTitleLabel">
+            <property name="text">
+             <string>Kết quả</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QTextEdit" name="result_output">
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+            <property name="placeholderText">
+             <string>Kết quả dàn ý sẽ được hiển thị ở đây...</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="logout_button">
+      <property name="minimumSize">
+       <size>
+        <width>100</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>Đăng Xuất</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

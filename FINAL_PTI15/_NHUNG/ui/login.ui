@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>LoginWindow</class>
+ <widget class="QMainWindow" name="LoginWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>500</width>
+    <height>522</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Đăng Nhập - Ứng Dụng Tạo Dàn Ý</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">/* --- Global Main Window Style --- */
+QMainWindow {
+    background-color: #f8f9fa;
+    font-family: &quot;Segoe UI&quot;, Arial, sans-serif;
+}
+
+/* --- Central Widget --- */
+QWidget#centralwidget {
+    background-color: #f8f9fa;
+}
+
+/* --- Main Frame --- */
+QFrame#mainFrame {
+    background-color: #ffffff;
+    border: 1px solid #dee2e6;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+/* --- Labels --- */
+QLabel {
+    color: #495057;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+QLabel#titleLabel {
+    color: #212529;
+    font-size: 24px;
+    font-weight: bold;
+    padding-bottom: 10px;
+}
+
+/* --- QLineEdit Styles --- */
+QLineEdit {
+    background-color: #ffffff;
+    color: #495057;
+    border: 2px solid #ced4da;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 14px;
+    min-height: 20px;
+}
+QLineEdit:focus {
+    border-color: #007bff;
+    background-color: #f8f9ff;
+    outline: none;
+}
+QLineEdit:hover {
+    border-color: #adb5bd;
+}
+
+/* --- QPushButton Styles --- */
+QPushButton {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-size: 14px;
+    font-weight: 600;
+    min-height: 20px;
+}
+QPushButton:hover {
+    background-color: #0056b3;
+}
+QPushButton:pressed {
+    background-color: #004085;
+}
+
+/* --- Link Buttons --- */
+QPushButton[flat=&quot;true&quot;] {
+    background-color: transparent;
+    color: #007bff;
+    border: none;
+    padding: 5px;
+    font-size: 13px;
+    font-weight: 500;
+    min-height: 15px;
+}
+QPushButton[flat=&quot;true&quot;]:hover {
+    background-color: transparent;
+    color: #0056b3;
+    text-decoration: underline;
+}
+QPushButton[flat=&quot;true&quot;]:pressed {
+    background-color: transparent;
+    color: #004085;
+}
+
+/* --- Menu Bar Style --- */
+QMenuBar {
+    background-color: #343a40;
+    color: white;
+    padding: 4px;
+    border: none;
+}
+QMenuBar::item {
+    background-color: transparent;
+    padding: 8px 12px;
+    border-radius: 4px;
+}
+QMenuBar::item:selected {
+    background-color: #495057;
+}
+
+/* --- Status Bar Style --- */
+QStatusBar {
+    background-color: #e9ecef;
+    color: #495057;
+    border-top: 1px solid #dee2e6;
+    padding: 4px;
+}</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QHBoxLayout" name="horizontalLayout_main">
+    <property name="spacing">
+     <number>0</number>
+    </property>
+    <property name="leftMargin">
+     <number>20</number>
+    </property>
+    <property name="topMargin">
+     <number>20</number>
+    </property>
+    <property name="rightMargin">
+     <number>20</number>
+    </property>
+    <property name="bottomMargin">
+     <number>20</number>
+    </property>
+    <item>
+     <spacer name="horizontalSpacer_left">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <widget class="QFrame" name="mainFrame">
+      <property name="minimumSize">
+       <size>
+        <width>400</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>450</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_main">
+       <property name="spacing">
+        <number>15</number>
+       </property>
+       <property name="leftMargin">
+        <number>30</number>
+       </property>
+       <property name="topMargin">
+        <number>30</number>
+       </property>
+       <property name="rightMargin">
+        <number>30</number>
+       </property>
+       <property name="bottomMargin">
+        <number>30</number>
+       </property>
+       <item>
+        <widget class="QLabel" name="titleLabel">
+         <property name="text">
+          <string>Ứng Dụng Tạo Dàn Ý</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QStackedWidget" name="stackedWidget">
+         <property name="currentIndex">
+          <number>1</number>
+         </property>
+         <widget class="QWidget" name="login_page">
+          <layout class="QVBoxLayout" name="verticalLayout_login">
+           <property name="spacing">
+            <number>15</number>
+           </property>
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <layout class="QFormLayout" name="formLayout_login">
+             <property name="horizontalSpacing">
+              <number>15</number>
+             </property>
+             <property name="verticalSpacing">
+              <number>15</number>
+             </property>
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_username">
+               <property name="text">
+                <string>Tên đăng nhập:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QLineEdit" name="login_username_input">
+               <property name="placeholderText">
+                <string>Nhập tên đăng nhập</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="label_password">
+               <property name="text">
+                <string>Mật khẩu:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QLineEdit" name="login_password_input">
+               <property name="echoMode">
+                <enum>QLineEdit::Password</enum>
+               </property>
+               <property name="placeholderText">
+                <string>Nhập mật khẩu</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <spacer name="verticalSpacer_login">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Fixed</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>10</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QPushButton" name="login_button">
+             <property name="text">
+              <string>Đăng Nhập</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="switchToRegisterButton">
+             <property name="text">
+              <string>Chưa có tài khoản? Đăng kí ngay</string>
+             </property>
+             <property name="flat">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="register_page">
+          <layout class="QVBoxLayout" name="verticalLayout_register">
+           <property name="spacing">
+            <number>15</number>
+           </property>
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <layout class="QFormLayout" name="formLayout_register">
+             <property name="horizontalSpacing">
+              <number>15</number>
+             </property>
+             <property name="verticalSpacing">
+              <number>15</number>
+             </property>
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_reg_username">
+               <property name="text">
+                <string>Tên đăng nhập:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QLineEdit" name="register_username_input">
+               <property name="placeholderText">
+                <string>Nhập tên đăng nhập</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="label_reg_password">
+               <property name="text">
+                <string>Mật khẩu:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QLineEdit" name="register_password_input">
+               <property name="echoMode">
+                <enum>QLineEdit::Password</enum>
+               </property>
+               <property name="placeholderText">
+                <string>Nhập mật khẩu</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="label_confirm_password">
+               <property name="text">
+                <string>Nhập lại mật khẩu:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="QLineEdit" name="register_confirm_password_input">
+               <property name="echoMode">
+                <enum>QLineEdit::Password</enum>
+               </property>
+               <property name="placeholderText">
+                <string>Nhập lại mật khẩu</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <spacer name="verticalSpacer_register">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Fixed</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>10</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QPushButton" name="register_button">
+             <property name="text">
+              <string>Đăng Kí</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="switchToLoginButton">
+             <property name="text">
+              <string>Đã có tài khoản? Đăng nhập</string>
+             </property>
+             <property name="flat">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <spacer name="horizontalSpacer_right">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
