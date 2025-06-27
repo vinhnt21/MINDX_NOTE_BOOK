@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Question Generator</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">/* Global Styles */
+QWidget#centralwidget {
+	background-color: #f7f9fc;
+}
+
+QWidget {
+	font-family: Segoe UI;
+	font-size: 15px;
+}
+
+QGroupBox {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    margin-top: 20px;
+	background-color: white;
+}
+
+QGroupBox::title {
+    subcontrol-origin: margin;
+    subcontrol-position: top left;
+    left: 10px;
+    padding: 0 5px 0 5px;
+    background-color: #f7f9fc;
+	font-weight: bold;
+}
+
+QLineEdit, QTextEdit {
+	border: 1px solid #ccc;
+	border-radius: 8px;
+	padding: 8px;
+	background-color: #ffffff;
+	font-weight: normal;
+}
+
+QLineEdit:focus, QTextEdit:focus {
+	border: 1px solid #06d6a0;
+}
+</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout_3">
+    <property name="spacing">
+     <number>15</number>
+    </property>
+    <property name="leftMargin">
+     <number>20</number>
+    </property>
+    <property name="topMargin">
+     <number>20</number>
+    </property>
+    <property name="rightMargin">
+     <number>20</number>
+    </property>
+    <property name="bottomMargin">
+     <number>20</number>
+    </property>
+    <item>
+     <widget class="QLabel" name="titleLabel">
+      <property name="text">
+       <string>Tạo Câu hỏi Tự động</string>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font-size: 24px; font-weight: bold; color: #118ab2;</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QGroupBox" name="topicGroupBox">
+      <property name="title">
+       <string>1. Nhập Chủ đề</string>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QLineEdit" name="topicLineEdit">
+         <property name="placeholderText">
+          <string>Ví dụ: Lịch sử Việt Nam giai đoạn 1945-1954, Các định luật Newton...</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QGroupBox" name="contentGroupBox">
+      <property name="title">
+       <string>2. Nhập Nội dung</string>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QTextEdit" name="contentTextEdit">
+         <property name="placeholderText">
+          <string>Dán đoạn văn bản, tài liệu, hoặc nội dung bài học vào đây...</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="generateButton">
+        <property name="minimumSize">
+         <size>
+          <width>200</width>
+          <height>45</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+	background-color: #06d6a0;
+	color: white;
+	border-radius: 8px;
+	font-weight: bold;
+	font-size: 16px;
+	padding: 10px 20px;
+}
+
+QPushButton:hover {
+	background-color: #05bA88;
+}
+
+QPushButton:pressed {
+	background-color: #049a73;
+}</string>
+        </property>
+        <property name="text">
+         <string>Tạo File Excel</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
