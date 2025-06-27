@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Đăng nhập hệ thống</string>
+   <string>Đăng ký tài khoản</string>
   </property>
   <property name="styleSheet">
    <string notr="true">/* Global Styles */
@@ -37,7 +37,7 @@ QLineEdit {
 }
 
 QLineEdit:focus {
-	border: 1px solid #06d6a0;
+	border: 1px solid #00aaff;
 }
 </string>
   </property>
@@ -49,7 +49,7 @@ QLineEdit:focus {
        <string/>
       </property>
       <property name="pixmap">
-        <pixmap/>
+       <pixmap/>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
@@ -81,7 +81,7 @@ QLineEdit:focus {
           <string notr="true">font-size: 28px; font-weight: bold; color: #118ab2;</string>
          </property>
          <property name="text">
-          <string>ĐĂNG NHẬP</string>
+          <string>ĐĂNG KÝ TÀI KHOẢN</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -97,9 +97,9 @@ QLineEdit:focus {
           <number>20</number>
          </property>
          <item row="0" column="0">
-          <widget class="QLabel" name="usernameLabel">
+          <widget class="QLabel" name="fullNameLabel">
            <property name="text">
-            <string>Tên đăng nhập:</string>
+            <string>Tên đăng nhập</string>
            </property>
           </widget>
          </item>
@@ -127,10 +127,27 @@ QLineEdit:focus {
            </property>
           </widget>
          </item>
+         <item row="2" column="0">
+          <widget class="QLabel" name="confirmPasswordLabel">
+           <property name="text">
+            <string>Nhập lại mật khẩu:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QLineEdit" name="confirmPasswordLineEdit">
+           <property name="echoMode">
+            <enum>QLineEdit::Password</enum>
+           </property>
+           <property name="placeholderText">
+            <string>Xác nhận lại mật khẩu</string>
+           </property>
+          </widget>
+         </item>
         </layout>
        </item>
        <item>
-        <widget class="QPushButton" name="loginButton">
+        <widget class="QPushButton" name="registerButton">
          <property name="minimumSize">
           <size>
            <width>0</width>
@@ -139,7 +156,7 @@ QLineEdit:focus {
          </property>
          <property name="styleSheet">
           <string notr="true">QPushButton {
-	background-color: #06d6a0;
+	background-color: #00cc66; /* Green */
 	color: white;
 	border-radius: 8px;
 	font-weight: bold;
@@ -147,21 +164,25 @@ QLineEdit:focus {
 }
 
 QPushButton:hover {
-	background-color: #05bA88;
+	background-color: #00b359;
 }
 
 QPushButton:pressed {
-	background-color: #049a73;
+	background-color: #00994d;
 }</string>
          </property>
          <property name="text">
-          <string>ĐĂNG NHẬP</string>
+          <string>ĐĂNG KÝ</string>
          </property>
-         <property name="autoDefault">
-          <bool>true</bool>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton">
+         <property name="styleSheet">
+          <string notr="true"/>
          </property>
-         <property name="default">
-          <bool>true</bool>
+         <property name="text">
+          <string>Đăng Nhập Nếu Đã Có Tài Khoản</string>
          </property>
         </widget>
        </item>
@@ -183,10 +204,18 @@ QPushButton:pressed {
     </item>
    </layout>
   </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>26</height>
+    </rect>
+   </property>
+  </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <resources>
-  <include location="resources.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

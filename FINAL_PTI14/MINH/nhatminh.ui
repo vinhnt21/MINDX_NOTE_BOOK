@@ -97,6 +97,13 @@
            </property>
           </widget>
          </item>
+         <item>
+          <widget class="QPushButton" name="btnHistory">
+           <property name="text">
+            <string>Xem lịch sử</string>
+           </property>
+          </widget>
+         </item>
         </layout>
        </item>
        <item>

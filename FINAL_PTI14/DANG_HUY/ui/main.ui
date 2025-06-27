@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>800</width>
-    <height>600</height>
+    <height>735</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -72,11 +72,11 @@ QLineEdit:focus, QTextEdit:focus {
     </property>
     <item>
      <widget class="QLabel" name="titleLabel">
-      <property name="text">
-       <string>Tạo Câu hỏi Tự động</string>
-      </property>
       <property name="styleSheet">
        <string notr="true">font-size: 24px; font-weight: bold; color: #118ab2;</string>
+      </property>
+      <property name="text">
+       <string>Tạo Câu hỏi Tự động</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -118,17 +118,11 @@ QLineEdit:focus, QTextEdit:focus {
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_3">
       <item>
-       <spacer name="horizontalSpacer">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
+       <widget class="QLineEdit" name="outputFileNameLineEdit">
+        <property name="placeholderText">
+         <string>Tên file Excel bạn muốn tạo</string>
         </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
+       </widget>
       </item>
       <item>
        <widget class="QPushButton" name="generateButton">
@@ -160,19 +154,6 @@ QPushButton:pressed {
          <string>Tạo File Excel</string>
         </property>
        </widget>
-      </item>
-      <item>
-       <spacer name="horizontalSpacer_2">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
       </item>
      </layout>
     </item>

@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Đăng ký tài khoản</string>
+   <string>Đăng nhập hệ thống</string>
   </property>
   <property name="styleSheet">
    <string notr="true">/* Global Styles */
@@ -37,20 +37,19 @@ QLineEdit {
 }
 
 QLineEdit:focus {
-	border: 1px solid #00aaff;
+	border: 1px solid #06d6a0;
 }
 </string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,1">
     <item>
-     <!-- Left Panel for the Image -->
      <widget class="QLabel" name="imageLabel">
       <property name="text">
        <string/>
       </property>
       <property name="pixmap">
-                <pixmap/>
+       <pixmap/>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
@@ -61,7 +60,6 @@ QLineEdit:focus {
      </widget>
     </item>
     <item>
-     <!-- Right Panel for the Registration Form -->
      <widget class="QWidget" name="formContainer" native="true">
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
@@ -79,11 +77,11 @@ QLineEdit:focus {
        </item>
        <item>
         <widget class="QLabel" name="titleLabel">
-         <property name="text">
-          <string>ĐĂNG KÝ TÀI KHOẢN</string>
-         </property>
          <property name="styleSheet">
           <string notr="true">font-size: 28px; font-weight: bold; color: #118ab2;</string>
+         </property>
+         <property name="text">
+          <string>ĐĂNG NHẬP</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -91,25 +89,24 @@ QLineEdit:focus {
         </widget>
        </item>
        <item>
-        <!-- Form Layout for labels and inputs -->
         <layout class="QFormLayout" name="formLayout">
-         <property name="topMargin">
-          <number>20</number>
-         </property>
          <property name="verticalSpacing">
           <number>15</number>
          </property>
+         <property name="topMargin">
+          <number>20</number>
+         </property>
          <item row="0" column="0">
-          <widget class="QLabel" name="fullNameLabel">
+          <widget class="QLabel" name="usernameLabel">
            <property name="text">
-            <string>Họ và tên:</string>
+            <string>Tên đăng nhập:</string>
            </property>
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="QLineEdit" name="fullNameLineEdit">
+          <widget class="QLineEdit" name="usernameLineEdit">
            <property name="placeholderText">
-            <string>Nhập họ và tên của bạn</string>
+            <string>Nhập tên đăng nhập</string>
            </property>
           </widget>
          </item>
@@ -130,27 +127,10 @@ QLineEdit:focus {
            </property>
           </widget>
          </item>
-         <item row="2" column="0">
-          <widget class="QLabel" name="confirmPasswordLabel">
-           <property name="text">
-            <string>Nhập lại mật khẩu:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="1">
-          <widget class="QLineEdit" name="confirmPasswordLineEdit">
-           <property name="echoMode">
-            <enum>QLineEdit::Password</enum>
-           </property>
-           <property name="placeholderText">
-            <string>Xác nhận lại mật khẩu</string>
-           </property>
-          </widget>
-         </item>
         </layout>
        </item>
        <item>
-        <widget class="QPushButton" name="registerButton">
+        <widget class="QPushButton" name="loginButton">
          <property name="minimumSize">
           <size>
            <width>0</width>
@@ -175,7 +155,20 @@ QPushButton:pressed {
 }</string>
          </property>
          <property name="text">
-          <string>ĐĂNG KÝ</string>
+          <string>ĐĂNG NHẬP</string>
+         </property>
+         <property name="autoDefault">
+          <bool>true</bool>
+         </property>
+         <property name="default">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton">
+         <property name="text">
+          <string>Đăng Kí Nếu Chưa Có Tài Khoản</string>
          </property>
         </widget>
        </item>
@@ -196,16 +189,6 @@ QPushButton:pressed {
      </widget>
     </item>
    </layout>
-  </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>800</width>
-     <height>25</height>
-    </rect>
-   </property>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>

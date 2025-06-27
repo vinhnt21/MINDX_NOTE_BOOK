@@ -3,7 +3,7 @@ import pandas as pd
 import io
 import os
 
-API_KEY ="AIzaSyBi551n7YGvUBxgk00lyBJMRvlrF8Rk7D4"
+API_KEY ="---"
 
 from google import genai
 
@@ -115,6 +115,3 @@ def csv_to_excel(csv_text, output_filename):
         print(f"Đã xảy ra lỗi khi tạo file Excel: {e}")
         
         
-        
-csv_content = generate_content("Lịch sử lớp 10", "Chiến tranh thế giới thứ hai")
-csv_to_excel(csv_content, "output.xlsx")

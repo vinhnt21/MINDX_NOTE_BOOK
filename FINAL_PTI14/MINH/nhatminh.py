@@ -6,9 +6,10 @@ from google import genai
 import google.generativeai as genai
 from data import load_essays, save_essays
 from model import Essay
+from history import HistoryWindow
 # API key cho Gemini
 # Lưu ý: Bạn nên quản lý API key của mình một cách an toàn, ví dụ như sử dụng biến môi trường.
-API_KEY = "AIzaSyBwQlBqW65iigpDPQScW1rySFb38FQ1FfQ"
+API_KEY = "---"
 
 MAIN_UI_FILE = os.path.join(os.path.dirname(__file__), "nhatminh.ui")
 
@@ -142,11 +143,13 @@ class MainWindow(QMainWindow):
         self.btnEvaluate.clicked.connect(self.evaluate_text)
         self.btnToggleMode.clicked.connect(self.toggle_dark_mode)
         self.btnAsk.clicked.connect(self.ask_additional_question)
+        self.btnHistory.clicked.connect(self.open_history_window)
 
         # chế độ tối và lưu trữ bài viết/phản hồi
         self.dark_mode = False
         self.current_essay = ""
         self.current_feedback = ""
+        self.history_window = None
 
         self.labelQuestion.setVisible(False)
         self.lineQuestion.setVisible(False)
@@ -228,6 +231,21 @@ class MainWindow(QMainWindow):
 
         # Xóa nội dung câu hỏi
         self.lineQuestion.clear()
+
+    def open_history_window(self):
+        """Mở cửa sổ lịch sử bài viết"""
+        try:
+            if self.history_window is None or not self.history_window.isVisible():
+                self.history_window = HistoryWindow()
+                # Đồng bộ dark mode
+                if self.dark_mode != self.history_window.dark_mode:
+                    self.history_window.toggle_dark_mode()
+            
+            self.history_window.show()
+            self.history_window.activateWindow()
+            self.history_window.raise_()
+        except Exception as e:
+            QMessageBox.critical(self, "Lỗi", f"Không thể mở cửa sổ lịch sử: {str(e)}")
 
     def toggle_dark_mode(self):
         """Chuyển đổi giữa chế độ sáng và tối"""

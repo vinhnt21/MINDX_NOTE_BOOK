@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>HistoryWindow</class>
+ <widget class="QMainWindow" name="HistoryWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1200</width>
+    <height>800</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Lịch sử bài viết đã đánh giá</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <layout class="QHBoxLayout" name="headerLayout">
+      <item>
+       <widget class="QLabel" name="labelTitle">
+        <property name="text">
+         <string>Lịch sử bài viết đã đánh giá</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btnToggleMode">
+        <property name="maximumSize">
+         <size>
+          <width>40</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>☀️</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="QWidget" name="mainContent" native="true">
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QWidget" name="leftPanel" native="true">
+         <property name="maximumWidth">
+          <number>400</number>
+         </property>
+         <layout class="QVBoxLayout" name="leftLayout">
+          <item>
+           <widget class="QLabel" name="labelEssayList">
+            <property name="text">
+             <string>Danh sách bài viết:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="searchLayout">
+            <item>
+             <widget class="QLineEdit" name="lineSearch">
+              <property name="placeholderText">
+               <string>Tìm kiếm bài viết...</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="btnSearch">
+              <property name="text">
+               <string>Tìm</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <widget class="QListWidget" name="listEssays">
+            <property name="alternatingRowColors">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="buttonLayout">
+            <item>
+             <widget class="QPushButton" name="btnRefresh">
+              <property name="text">
+               <string>Làm mới</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="btnDelete">
+              <property name="text">
+               <string>Xóa bài viết</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QWidget" name="rightPanel" native="true">
+         <layout class="QVBoxLayout" name="rightLayout">
+          <item>
+           <widget class="QLabel" name="labelDetails">
+            <property name="text">
+             <string>Chi tiết bài viết:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="labelOriginalEssay">
+            <property name="text">
+             <string>Bài viết gốc:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QTextEdit" name="textOriginalEssay">
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+            <property name="maximumHeight">
+             <number>150</number>
+            </property>
+            <property name="placeholderText">
+             <string>Chọn một bài viết từ danh sách để xem nội dung...</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="labelAIFeedback">
+            <property name="text">
+             <string>Đánh giá của AI:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QTextEdit" name="textAIFeedback">
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+            <property name="placeholderText">
+             <string>Phần đánh giá của AI sẽ hiển thị ở đây...</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="actionLayout">
+            <item>
+             <widget class="QPushButton" name="btnCopyEssay">
+              <property name="text">
+               <string>Copy bài viết</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="btnCopyFeedback">
+              <property name="text">
+               <string>Copy đánh giá</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="btnExport">
+              <property name="text">
+               <string>Xuất file</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="labelStatus">
+      <property name="text">
+       <string>Sẵn sàng</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui> 
