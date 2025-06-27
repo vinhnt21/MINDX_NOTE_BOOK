@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1200</width>
+    <width>1123</width>
     <height>800</height>
    </rect>
   </property>
@@ -50,9 +50,6 @@
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
         <widget class="QWidget" name="leftPanel" native="true">
-         <property name="maximumWidth">
-          <number>400</number>
-         </property>
          <layout class="QVBoxLayout" name="leftLayout">
           <item>
            <widget class="QLabel" name="labelEssayList">
@@ -129,9 +126,6 @@
             <property name="readOnly">
              <bool>true</bool>
             </property>
-            <property name="maximumHeight">
-             <number>150</number>
-            </property>
             <property name="placeholderText">
              <string>Chọn một bài viết từ danh sách để xem nội dung...</string>
             </property>
@@ -198,4 +192,4 @@
  </widget>
  <resources/>
  <connections/>
-</ui> 
+</ui>

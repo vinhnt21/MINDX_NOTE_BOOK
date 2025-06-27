@@ -1,126 +1,362 @@
-from PyQt6.QtWidgets import QMainWindow, QApplication, QMessageBox, QPushButton
+from PyQt6.QtWidgets import *
 from PyQt6 import uic
 import sys
 import os
-from google import genai
-import google.generativeai as genai
+
 from data import load_essays, save_essays
 from model import Essay
-from history import HistoryWindow
-# API key cho Gemini
-# Lưu ý: Bạn nên quản lý API key của mình một cách an toàn, ví dụ như sử dụng biến môi trường.
-API_KEY = "---"
+from PyQt6.QtCore import Qt
+from ai import get_answer, ask_question
+from datetime import datetime
 
 MAIN_UI_FILE = os.path.join(os.path.dirname(__file__), "nhatminh.ui")
+HISTORY_UI_FILE = os.path.join(os.path.dirname(__file__), "history.ui")
+
+
+
 
 essays = load_essays()
 
-def get_answer(text, level):
-    """
-    Gửi bài viết đến Gemini API để đánh giá
 
-    Args:
-        text (str): Bài viết cần đánh giá
-        level (str): Trình độ học sinh (Beginner/Intermediate/Advanced)
-
-    Returns:
-        str: Phản hồi từ AI
-    """
-    try:
-        genai.configure(api_key=API_KEY)
-
-        model = genai.GenerativeModel('gemini-2.5-flash')
-
-        role_info = f"""
-        Bạn là giáo viên chấm bài viết tiếng Anh.
-        Bạn sẽ nhận được một bài viết tiếng Anh của học sinh trình độ {level}.
-        Mong bạn hãy chấm điểm rất chặt chẽ nếu người dùng là Advanced, chấm điểm ít chặt chẽ hơn đối với Intermediate, 
-        chấm điểm rất nhẹ tay đối với Beginner.
-        Hãy đánh giá dựa trên level của học sinh và nhận xét theo các tiêu chí:
-        - Ngữ pháp (Grammar)
-        - Từ vựng (Vocabulary)
-        - Cấu trúc (Structure) 
-        - Ý tưởng (Ideas)
-        - Gợi ý cải thiện (Suggestions for improvement)
-        - Phân tích từ vựng (cái này có thể cho ngắn)
-        - Trả về bài viết được viết lại tốt hơn cho người dùng tham khảo
-        - Cho các Video Youtube cho người dùng để giúp người dùng cải thiện.
-
-        Cuối cùng, hãy cho điểm bài viết trên thang điểm 10.
-
-        Trả về định dạng text cơ bản, chia các ý theo gạch đầu dòng, không dùng markdown.
-        """
-
-        question = (
-            f"Đánh giá bài viết tiếng Anh này của học sinh trình độ {level}:\n\n{text}"
-        )
-
-        # Gemini sử dụng một định dạng hơi khác cho các cuộc hội thoại nhiều lượt
-        # Ở đây chúng ta sẽ bắt đầu một cuộc trò chuyện mới mỗi lần để đơn giản.
-        chat = model.start_chat(history=[
-            {
-                "role": "user",
-                "parts": [role_info]
-            },
-            {
-                "role": "model",
-                "parts": ["Tôi đã sẵn sàng để chấm bài."]
-            }
-        ])
-
-        response = chat.send_message(question)
-
-        return response.text
-
-    except Exception as e:
-        return f"Lỗi khi kết nối với AI: {str(e)}"
-
-
-def ask_question(essay, feedback, question, level):
-    """
-    Gửi câu hỏi thêm về bài viết đến Gemini API
-
-    Args:
-        essay (str): Bài viết gốc
-        feedback (str): Phản hồi đã có
-        question (str): Câu hỏi của học sinh
-        level (str): Trình độ học sinh
-
-    Returns:
-        str: Phản hồi từ AI
-    """
-    try:
-        genai.configure(api_key=API_KEY)
-
-        model = genai.GenerativeModel('gemini-2.5-flash')
-
-        # Xây dựng lại lịch sử trò chuyện để cung cấp ngữ cảnh
-        history = [
-            {
-                "role": "user",
-                "parts": [f"Bạn là giáo viên tiếng Anh đang hỗ trợ học sinh trình độ {level}."]
-            },
-            {
-                "role": "model",
-                "parts": ["Được thôi, tôi sẽ giúp."]
-            },
-            {
-                "role": "user",
-                "parts": [f"Bài viết của học sinh:\n{essay}\n\nĐánh giá của bạn:\n{feedback}"]
-            },
-            {
-                "role": "model",
-                "parts": ["Tôi đã xem lại bài viết và phản hồi của mình."]
-            }
-        ]
+class HistoryWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        uic.loadUi(HISTORY_UI_FILE, self)
         
-        chat = model.start_chat(history=history)
-        response = chat.send_message(question)
+        # Thiết lập toggle mode button
+        self.btnToggleMode.setText("☀️")
+        self.btnToggleMode.setStyleSheet(
+            """
+            QPushButton {
+                font-size: 18px;
+                background-color: transparent;
+                border: none;
+            }
+            """
+        )
+        
+        # Khởi tạo biến
+        self.dark_mode = False
+        self.essays = []
+        self.filtered_essays = []
+        
+        # Kết nối các signal và slot
+        self.setup_connections()
+        
+        # Áp dụng theme mặc định và tải dữ liệu
+        self.toggle_dark_mode()
+        self.load_data()
 
-        return response.text
+    def setup_connections(self):
+        """Kết nối các signal và slot"""
+        self.btnToggleMode.clicked.connect(self.toggle_dark_mode)
+        self.btnRefresh.clicked.connect(self.load_data)
+        self.btnDelete.clicked.connect(self.delete_selected_essay)
+        self.btnSearch.clicked.connect(self.search_essays)
+        self.btnCopyEssay.clicked.connect(self.copy_essay)
+        self.btnCopyFeedback.clicked.connect(self.copy_feedback)
+        self.btnExport.clicked.connect(self.export_essay)
+        self.listEssays.itemClicked.connect(self.display_essay_details)
+        self.lineSearch.returnPressed.connect(self.search_essays)
 
-    except Exception as e:
-        return f"Lỗi khi kết nối với AI: {str(e)}"
+    def load_data(self):
+        """Tải dữ liệu từ file và hiển thị trong danh sách"""
+        try:
+            self.essays = load_essays()
+            self.filtered_essays = self.essays.copy()
+            self.populate_essay_list()
+            self.labelStatus.setText(f"Đã tải {len(self.essays)} bài viết")
+        except Exception as e:
+            QMessageBox.critical(self, "Lỗi", f"Không thể tải dữ liệu: {str(e)}")
+            self.labelStatus.setText("Lỗi khi tải dữ liệu")
+
+    def populate_essay_list(self):
+        """Hiển thị danh sách bài viết trong list widget"""
+        self.listEssays.clear()
+        
+        for i, essay in enumerate(self.filtered_essays):
+            # Tạo preview ngắn của bài viết (50 ký tự đầu)
+            preview = essay.user_essay[:50] + "..." if len(essay.user_essay) > 50 else essay.user_essay
+            preview = preview.replace('\n', ' ')  # Loại bỏ xuống dòng
+            
+            # Tạo item cho list
+            item_text = f"Bài {i+1}: {preview}"
+            item = QListWidgetItem(item_text)
+            item.setData(Qt.ItemDataRole.UserRole, i)  # Lưu index của essay
+            self.listEssays.addItem(item)
+
+    def search_essays(self):
+        """Tìm kiếm bài viết theo từ khóa"""
+        search_text = self.lineSearch.text().strip().lower()
+        
+        if not search_text:
+            self.filtered_essays = self.essays.copy()
+        else:
+            self.filtered_essays = []
+            for essay in self.essays:
+                # Tìm kiếm trong cả bài viết và feedback
+                if (search_text in essay.user_essay.lower() or 
+                    search_text in essay.ai_feedback.lower()):
+                    self.filtered_essays.append(essay)
+        
+        self.populate_essay_list()
+        self.labelStatus.setText(f"Tìm thấy {len(self.filtered_essays)}/{len(self.essays)} bài viết")
+
+    def display_essay_details(self, item):
+        """Hiển thị chi tiết bài viết khi được chọn"""
+        try:
+            index = item.data(Qt.ItemDataRole.UserRole)
+            essay = self.filtered_essays[index]
+            
+            self.textOriginalEssay.setPlainText(essay.user_essay)
+            self.textAIFeedback.setPlainText(essay.ai_feedback)
+            
+            self.labelStatus.setText(f"Đang xem bài viết {index + 1}")
+        except Exception as e:
+            QMessageBox.warning(self, "Lỗi", f"Không thể hiển thị chi tiết: {str(e)}")
+
+    def delete_selected_essay(self):
+        """Xóa bài viết được chọn"""
+        current_item = self.listEssays.currentItem()
+        if not current_item:
+            QMessageBox.warning(self, "Cảnh báo", "Vui lòng chọn một bài viết để xóa!")
+            return
+        
+        # Xác nhận xóa
+        reply = QMessageBox.question(
+            self, "Xác nhận", 
+            "Bạn có chắc chắn muốn xóa bài viết này không?",
+            QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
+            QMessageBox.StandardButton.No
+        )
+        
+        if reply == QMessageBox.StandardButton.Yes:
+            try:
+                index = current_item.data(Qt.ItemDataRole.UserRole)
+                essay_to_delete = self.filtered_essays[index]
+                
+                # Tìm và xóa essay trong danh sách gốc
+                self.essays = [e for e in self.essays if e.user_essay != essay_to_delete.user_essay 
+                              or e.ai_feedback != essay_to_delete.ai_feedback]
+                
+                # Lưu lại dữ liệu
+                save_essays(self.essays)
+                
+                # Cập nhật giao diện
+                self.load_data()
+                
+                # Xóa nội dung hiển thị
+                self.textOriginalEssay.clear()
+                self.textAIFeedback.clear()
+                
+                self.labelStatus.setText("Đã xóa bài viết thành công")
+                QMessageBox.information(self, "Thành công", "Đã xóa bài viết!")
+                
+            except Exception as e:
+                QMessageBox.critical(self, "Lỗi", f"Không thể xóa bài viết: {str(e)}")
+
+    def copy_essay(self):
+        """Copy bài viết gốc vào clipboard"""
+        text = self.textOriginalEssay.toPlainText()
+        if text:
+            clipboard = QApplication.clipboard()
+            clipboard.setText(text)
+            self.labelStatus.setText("Đã copy bài viết vào clipboard")
+        else:
+            QMessageBox.warning(self, "Cảnh báo", "Không có bài viết nào để copy!")
+
+    def copy_feedback(self):
+        """Copy đánh giá AI vào clipboard"""
+        text = self.textAIFeedback.toPlainText()
+        if text:
+            clipboard = QApplication.clipboard()
+            clipboard.setText(text)
+            self.labelStatus.setText("Đã copy đánh giá vào clipboard")
+        else:
+            QMessageBox.warning(self, "Cảnh báo", "Không có đánh giá nào để copy!")
+
+    def export_essay(self):
+        """Xuất bài viết ra file text"""
+        current_item = self.listEssays.currentItem()
+        if not current_item:
+            QMessageBox.warning(self, "Cảnh báo", "Vui lòng chọn một bài viết để xuất!")
+            return
+        
+        try:
+            index = current_item.data(Qt.ItemDataRole.UserRole)
+            essay = self.filtered_essays[index]
+            
+            # Mở dialog chọn nơi lưu file
+            file_path, _ = QFileDialog.getSaveFileName(
+                self, "Xuất bài viết", f"bai_viet_{index+1}.txt", 
+                "Text Files (*.txt);;All Files (*)"
+            )
+            
+            if file_path:
+                with open(file_path, 'w', encoding='utf-8') as file:
+                    file.write("=" * 50 + "\n")
+                    file.write("BÀI VIẾT GỐC\n")
+                    file.write("=" * 50 + "\n\n")
+                    file.write(essay.user_essay)
+                    file.write("\n\n" + "=" * 50 + "\n")
+                    file.write("ĐÁNH GIÁ CỦA AI\n")
+                    file.write("=" * 50 + "\n\n")
+                    file.write(essay.ai_feedback)
+                    file.write(f"\n\n" + "=" * 50 + "\n")
+                    file.write(f"Xuất ngày: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}\n")
+                    file.write("=" * 50 + "\n")
+                
+                self.labelStatus.setText(f"Đã xuất bài viết ra: {file_path}")
+                QMessageBox.information(self, "Thành công", f"Đã xuất bài viết ra:\n{file_path}")
+                
+        except Exception as e:
+            QMessageBox.critical(self, "Lỗi", f"Không thể xuất file: {str(e)}")
+
+    def toggle_dark_mode(self):
+        """Chuyển đổi giữa chế độ sáng và tối"""
+        self.dark_mode = not self.dark_mode
+
+        if self.dark_mode:
+            self.btnToggleMode.setText("🌙")
+            # Dark mode styles - tương tự nhatminh.py
+            self.setStyleSheet("""
+                QMainWindow {
+                    background-color: #1E1E1E;
+                }
+                QLabel {
+                    color: #FFFFFF;
+                }
+                QLabel#labelTitle {
+                    font-size: 24px;
+                    font-weight: bold;
+                    color: #64B5F6;
+                }
+                QPushButton {
+                    background-color: #2979FF;
+                    color: white;
+                    border-radius: 5px;
+                    padding: 8px;
+                    font-size: 12px;
+                }
+                QPushButton:hover {
+                    background-color: #1565C0;
+                }
+                QTextEdit {
+                    background-color: #2D2D2D;
+                    color: #FFFFFF;
+                    border: 1px solid #555555;
+                    border-radius: 5px;
+                    padding: 10px;
+                    font-size: 12px;
+                }
+                QLineEdit {
+                    background-color: #2D2D2D;
+                    color: #FFFFFF;
+                    border: 1px solid #555555;
+                    border-radius: 5px;
+                    padding: 5px;
+                    font-size: 12px;
+                }
+                QListWidget {
+                    background-color: #2D2D2D;
+                    color: #FFFFFF;
+                    border: 1px solid #555555;
+                    border-radius: 5px;
+                    font-size: 12px;
+                }
+                QListWidget::item {
+                    padding: 8px;
+                    border-bottom: 1px solid #555555;
+                }
+                QListWidget::item:selected {
+                    background-color: #2979FF;
+                }
+                QListWidget::item:hover {
+                    background-color: #404040;
+                }
+                QWidget#mainContent, QWidget#leftPanel, QWidget#rightPanel {
+                    background-color: #2D2D2D;
+                    border-radius: 10px;
+                    padding: 10px;
+                }
+                QPushButton#btnToggleMode {
+                    font-size: 18px;
+                    background-color: transparent;
+                    border: none;
+                }
+            """)
+        else:
+            self.btnToggleMode.setText("☀️")
+            # Light mode styles - tương tự nhatminh.py
+            self.setStyleSheet("""
+                QMainWindow {
+                    background-color: #FFFFFF;
+                }
+                QLabel {
+                    color: #333333;
+                }
+                QLabel#labelTitle {
+                    font-size: 24px;
+                    font-weight: bold;
+                    color: #1976D2;
+                }
+                QPushButton {
+                    background-color: #2196F3;
+                    color: white;
+                    border-radius: 5px;
+                    padding: 8px;
+                    font-size: 12px;
+                }
+                QPushButton:hover {
+                    background-color: #1976D2;
+                }
+                QTextEdit {
+                    background-color: #F5F5F5;
+                    color: #333333;
+                    border: 1px solid #DDDDDD;
+                    border-radius: 5px;
+                    padding: 10px;
+                    font-size: 12px;
+                }
+                QLineEdit {
+                    background-color: #F5F5F5;
+                    color: #333333;
+                    border: 1px solid #DDDDDD;
+                    border-radius: 5px;
+                    padding: 5px;
+                    font-size: 12px;
+                }
+                QListWidget {
+                    background-color: #F5F5F5;
+                    color: #333333;
+                    border: 1px solid #DDDDDD;
+                    border-radius: 5px;
+                    font-size: 12px;
+                }
+                QListWidget::item {
+                    padding: 8px;
+                    border-bottom: 1px solid #DDDDDD;
+                }
+                QListWidget::item:selected {
+                    background-color: #2196F3;
+                    color: white;
+                }
+                QListWidget::item:hover {
+                    background-color: #E3F2FD;
+                }
+                QWidget#mainContent, QWidget#leftPanel, QWidget#rightPanel {
+                    background-color: #FFFFFF;
+                    border-radius: 10px;
+                    padding: 10px;
+                }
+                QPushButton#btnToggleMode {
+                    font-size: 18px;
+                    background-color: transparent;
+                    border: none;
+                }
+            """)
+
+
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -240,10 +476,9 @@ class MainWindow(QMainWindow):
                 # Đồng bộ dark mode
                 if self.dark_mode != self.history_window.dark_mode:
                     self.history_window.toggle_dark_mode()
-            
+            # mở cửa sổ lịch sử
             self.history_window.show()
-            self.history_window.activateWindow()
-            self.history_window.raise_()
+      
         except Exception as e:
             QMessageBox.critical(self, "Lỗi", f"Không thể mở cửa sổ lịch sử: {str(e)}")
 
